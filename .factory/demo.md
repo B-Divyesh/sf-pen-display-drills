@@ -6,7 +6,7 @@
 - Local: `http://127.0.0.1:4173/demo`
 - Compatibility entry: `/?demo=1`
 
-The `/demo` route and `/?demo=1` query entry both enter demo mode directly. The query entry is replaced with the canonical `/demo` URL before the service worker registers, so offline reloads use one stable cache key. Both start on the box drill with two realistic sample results: 82 and 76.
+The `/demo` route and `/?demo=1` query entry both enter demo mode directly. The query entry is replaced with the canonical `/demo` URL before the service worker registers, so offline reloads use one stable cache key. Both start on the box drill and visibly list two realistic sample results: 82/100 and 76/100.
 
 ## Isolation
 

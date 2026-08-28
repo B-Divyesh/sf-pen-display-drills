@@ -7,13 +7,13 @@ Audited 2026-08-28. Counts treat hyphenated terms and numerals as one word. Head
 | Copy | Words | Result |
 | --- | ---: | --- |
 | Practice steadier lines in five minutes | 6 | Headline; pass |
-| For new tablet artists who want clear targets and feedback instead of a blank canvas. | 14 | Pass |
+| For new tablet artists who want clear targets and feedback instead of a blank canvas. | 15 | Pass |
 | Try it with sample data | 5 | Primary action; pass |
 | Start on drill 3 with two sample scores. | 8 | Pass |
 | Works offline after your first visit. | 6 | Pass |
 | Practice stays in this tab. | 5 | Pass |
 | Five core drills are free. | 5 | Pass |
-| A focused desk for hand control. | 7 | Pass |
+| A focused desk for hand control. | 6 | Pass |
 
 The first screen reads aloud in one breath: practice steadier lines in five minutes, for new tablet artists, then try the sample.
 
@@ -71,4 +71,17 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 
 ## Catalog description
 
-“Practice tablet lines and perspective with five-minute feedback drills.” — 9 words, 70 characters, begins with a verb.
+“Practice tablet lines and perspective with five-minute feedback drills.” — 9 words, 68 characters, begins with a verb.
+
+## Review 1 README rewrites
+
+| Copy | Words | Result |
+| --- | ---: | --- |
+| Claim tests cover offline reload, local practice, feedback, demo reset, and input methods. | 13 | Pass |
+| They also cover free drills, license restore, license storage, the timer, and account-free use. | 14 | Pass |
+| Restore an existing Space Pack license from the practice desk. | 10 | Pass |
+| If you do, this browser stores the token and its last check result. | 13 | Pass |
+| After a valid check, it waits a day before checking again. | 11 | Pass |
+| The demo does not save or use your practice data. | 10 | Pass |
+
+The visitor-facing name is “demo” throughout the landing page and README. Technical namespace details remain in `.factory/demo.md`.

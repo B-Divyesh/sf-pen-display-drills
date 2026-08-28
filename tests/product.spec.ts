@@ -12,9 +12,12 @@ test('@claim:demo-sandbox opens a seeded demo and resets it', async ({ page }) =
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
   await expect(page).toHaveURL(/\/demo$/);
   await expect(page.getByText('2 sample drills complete')).toBeVisible();
+  await expect(page.getByText('Sample scores', { exact: true })).toBeVisible();
+  await expect(page.locator('[data-sample-scores]')).toHaveText('82/100 · 76/100');
   await expect(page.getByRole('heading', { name: 'Box', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Reset demo' }).click();
   await expect(page.getByText('2 sample drills complete')).toBeVisible();
+  await expect(page.locator('[data-sample-scores]')).toHaveText('82/100 · 76/100');
   for (const button of await page.locator('.pack-tab').all()) await expect(button).toBeDisabled();
   await expect(page.evaluate(() => Object.keys(localStorage).filter((key) => key.startsWith('practice:') || key.startsWith('demo:')))).resolves.toEqual([]);
   expect(await page.evaluate(() => localStorage.getItem('sb_license:pen-display-drills'))).toBe('real-license-sentinel');
@@ -137,6 +140,40 @@ test('@claim:license-restore restores a legacy Space pack license from the pract
   await expect(page.getByText('License verified. The space pack is now active.')).toBeVisible();
   await expect.poll(() => page.locator('.pack-tab:not([disabled])').count()).toBe(3);
   expect(await page.evaluate(() => localStorage.getItem('sb_license:pen-display-drills'))).toBe('restored-license');
+});
+
+test('@claim:license-storage stores only a supplied token and its daily check result', async ({ page }) => {
+  let checks = 0;
+  await page.route('https://api.sociobot.in/api/v1/products/pen-display-drills/verify?license=stored-license', async (route) => {
+    checks += 1;
+    await route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } });
+  });
+  await page.goto('/practice');
+  expect(await page.evaluate(() => Object.keys(localStorage))).toEqual([]);
+  await page.getByText('Have a license? Paste it', { exact: true }).click();
+  await page.getByLabel('License token').fill('stored-license');
+  const before = Date.now();
+  await page.getByRole('button', { name: 'Restore license' }).click();
+  await expect(page.getByText('License verified. The space pack is now active.')).toBeVisible();
+  await expect.poll(() => checks).toBe(1);
+  const stored = await page.evaluate(() => ({
+    keys: Object.keys(localStorage).sort(),
+    token: localStorage.getItem('sb_license:pen-display-drills'),
+    verdict: JSON.parse(localStorage.getItem('sb_license_verdict:pen-display-drills') ?? 'null') as { valid: boolean; checkedAt: number } | null,
+  }));
+  expect(stored.keys).toEqual(['sb_license:pen-display-drills', 'sb_license_verdict:pen-display-drills']);
+  expect(stored.token).toBe('stored-license');
+  expect(stored.verdict?.valid).toBe(true);
+  expect(stored.verdict?.checkedAt).toBeGreaterThanOrEqual(before);
+  expect(stored.verdict?.checkedAt).toBeLessThanOrEqual(Date.now());
+
+  await page.reload();
+  await page.waitForTimeout(100);
+  expect(checks).toBe(1);
+
+  await page.evaluate(() => localStorage.setItem('sb_license_verdict:pen-display-drills', JSON.stringify({ valid: true, checkedAt: Date.now() - 86_400_001 })));
+  await page.reload();
+  await expect.poll(() => checks).toBe(2);
 });
 
 test('a valid returned license still opens the three legacy themed drills', async ({ page }) => {
@@ -331,6 +368,10 @@ test('history navigation restores routes', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Privacy', exact: true }).first().click();
   await expect(page).toHaveTitle('Privacy — Pen Display Drills');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://pen-display-drills.sociobot.in/privacy');
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Privacy — Pen Display Drills');
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', 'https://pen-display-drills.sociobot.in/privacy');
   await page.goBack();
   await expect(page.getByRole('heading', { name: 'Practice steadier lines in five minutes' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Practice steadier lines in five minutes' })).toBeFocused();
 });

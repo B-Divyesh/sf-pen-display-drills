@@ -6,9 +6,9 @@ Pen Display Drills is an offline-capable browser practice desk for early digital
 
 The five core drills are free and do not require an account.
 
-## Try the sandbox
+## Try the demo
 
-Open `/demo`, `/?demo=1`, or visit <https://pen-display-drills.sociobot.in/demo>. It starts on the box drill with two sample scores. Resetting the demo returns to that state. The demo does not read or write a practice storage namespace.
+Open `/demo`, `/?demo=1`, or visit <https://pen-display-drills.sociobot.in/demo>. It starts on the box drill with two visible sample scores. Resetting the demo returns to that state. The demo does not save or use your practice data.
 
 ## Run locally
 
@@ -28,7 +28,7 @@ npm test
 npm run build
 ```
 
-`npm test` runs unit tests and Playwright browser tests. The claim tests cover offline reload, local-only practice, geometric feedback, demo reset, input methods, free drills, legacy-license restore, the five-minute timer, and account-free use.
+`npm test` runs unit tests and Playwright browser tests. Claim tests cover offline reload, local practice, feedback, demo reset, and input methods. They also cover free drills, license restore, license storage, the timer, and account-free use.
 
 `npm run build` runs TypeScript checks and writes the static deployment to `dist/`. The first visit installs a service worker. A visited drill can then reload offline.
 
@@ -38,7 +38,7 @@ Deploy the contents of `dist/` as a static site. `staticwebapp.config.json` supp
 
 ## Privacy
 
-Drawings, pressure information, and practice scores are not uploaded or persisted. Existing Space Pack licenses can be restored from the practice desk; verification stores a supplied token and its daily verification result only when a license is supplied. Read the in-product [privacy page](https://pen-display-drills.sociobot.in/privacy) and [terms](https://pen-display-drills.sociobot.in/terms).
+Drawings, pressure information, and practice scores are not uploaded or persisted. Restore an existing Space Pack license from the practice desk. If you do, this browser stores the token and its last check result. After a valid check, it waits a day before checking again. Read the in-product [privacy page](https://pen-display-drills.sociobot.in/privacy) and [terms](https://pen-display-drills.sociobot.in/terms).
 
 ## Project notes
 

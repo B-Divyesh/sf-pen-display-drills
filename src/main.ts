@@ -99,7 +99,7 @@ function practicePage(isDemo: boolean): string {
   const packButtons = drills.filter((drill) => drill.paid).map((drill) => `<button type="button" class="drill-tab pack-tab" data-drill="${drill.id}" ${licensed ? '' : 'disabled'} aria-pressed="false"><span>${licensed ? '★' : '🔒'}</span>${drill.short}</button>`).join('');
   return shell(`<section class="practice-head">
     <div><p class="eyebrow">Calibration session · 05:00</p><h1 tabindex="-1">Train your hand for five minutes</h1><p>Draw over each amber target. Use the reading to adjust your next stroke.</p></div>
-    <div class="session-meter"><span>Session time</span><strong data-timer>05:00</strong><span data-completed>${isDemo ? '2 sample drills complete' : 'No drills complete yet'}</span></div>
+    <div class="session-meter"><span>Session time</span><strong data-timer>05:00</strong><span data-completed>${isDemo ? '2 sample drills complete' : 'No drills complete yet'}</span>${isDemo ? '<p class="sample-history"><span>Sample scores</span><strong data-sample-scores>82/100 · 76/100</strong></p>' : ''}</div>
   </section>
   <section class="desk" aria-label="Drawing drill desk">
     <div class="selector"><div><span class="selector-label">Core drills</span>${coreButtons}</div><div><span class="selector-label">Space pack</span>${packButtons}</div></div>
@@ -162,11 +162,24 @@ function navigate(path: string, replace = false): void {
 function render(): void {
   const path = currentPath();
   const meta = routeData[path];
-  document.title = meta?.title ?? `Page not found — ${APP_NAME}`;
+  const title = meta?.title ?? `Page not found — ${APP_NAME}`;
+  const metaDescription = meta?.description ?? 'Return to Pen Display Drills.';
+  const routeUrl = `https://pen-display-drills.sociobot.in${path}`;
+  document.title = title;
   const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-  if (description) description.content = meta?.description ?? 'Return to Pen Display Drills.';
+  if (description) description.content = metaDescription;
   const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-  if (canonical) canonical.href = `https://pen-display-drills.sociobot.in${path}`;
+  if (canonical) canonical.href = routeUrl;
+  for (const [selector, content] of [
+    ['meta[property="og:title"]', title],
+    ['meta[name="twitter:title"]', title],
+    ['meta[property="og:description"]', metaDescription],
+    ['meta[name="twitter:description"]', metaDescription],
+    ['meta[property="og:url"]', routeUrl],
+  ]) {
+    const node = document.querySelector<HTMLMetaElement>(selector);
+    if (node) node.content = content;
+  }
   if (path === '/') app.innerHTML = homePage();
   else if (path === '/demo') app.innerHTML = practicePage(true);
   else if (path === '/practice') app.innerHTML = practicePage(false);
@@ -285,10 +298,14 @@ function initPractice(isDemo: boolean): void {
   const finishButton = document.querySelector<HTMLButtonElement>('[data-finish]')!;
   const undoButton = document.querySelector<HTMLButtonElement>('[data-undo]')!;
   const needle = document.querySelector<HTMLElement>('[data-needle]')!;
+  const sampleScoresNode = document.querySelector<HTMLElement>('[data-sample-scores]');
 
   const currentDrill = () => drills[drillIndex];
   const cssSize = () => ({ width: canvas.clientWidth, height: canvas.clientHeight });
   const allTargets = () => { const { width, height } = cssSize(); return targetsFor(currentDrill().id, width, height); };
+  const renderSampleScores = () => {
+    if (sampleScoresNode) sampleScoresNode.textContent = sampleScores.map((score) => `${score}/100`).join(' · ');
+  };
 
   function resizeCanvas(): void {
     const { width, height } = cssSize();
@@ -441,6 +458,7 @@ function initPractice(isDemo: boolean): void {
     const score = Math.round(strokes.reduce((sum, stroke) => sum + stroke.score, 0) / strokes.length);
     completed += 1;
     sampleScores.push(score);
+    renderSampleScores();
     document.querySelector<HTMLElement>('[data-completed]')!.textContent = `${completed} ${isDemo ? 'sample ' : ''}drills complete`;
     document.querySelector<HTMLElement>('[data-summary-copy]')!.textContent = `You finished ${currentDrill().name.toLowerCase()} with an average score of ${score}. Your ${score >= 68 ? 'control stayed near the target' : 'next pass should use a slower, single motion'}.`;
     document.querySelector<HTMLElement>('.desk')!.hidden = true;
@@ -449,7 +467,7 @@ function initPractice(isDemo: boolean): void {
   });
   document.querySelector<HTMLButtonElement>('[data-next]')!.addEventListener('click', () => { let next = (drillIndex + 1) % drills.length; if (drills[next].paid && !licenseActive) next = 0; selectDrill(drills[next].id); document.querySelector<HTMLElement>('.desk')!.hidden = false; });
   document.querySelector<HTMLButtonElement>('[data-redo]')!.addEventListener('click', resetDrill);
-  document.querySelector<HTMLButtonElement>('[data-reset-demo]')?.addEventListener('click', () => { drillIndex = 2; completed = 2; sampleScores.splice(0, sampleScores.length, 82, 76); document.querySelector<HTMLElement>('[data-completed]')!.textContent = '2 sample drills complete'; selectDrill('box'); });
+  document.querySelector<HTMLButtonElement>('[data-reset-demo]')?.addEventListener('click', () => { drillIndex = 2; completed = 2; sampleScores.splice(0, sampleScores.length, 82, 76); renderSampleScores(); document.querySelector<HTMLElement>('[data-completed]')!.textContent = '2 sample drills complete'; selectDrill('box'); });
   new ResizeObserver(resizeCanvas).observe(canvas);
   selectDrill(currentDrill().id);
   const timer = window.setInterval(() => {

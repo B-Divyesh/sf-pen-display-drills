@@ -49,6 +49,13 @@
     "sandbox": "fresh browser context at /practice; mock a valid Sociobot verification response, paste a token, and assert the three pack drills unlock"
   },
   {
+    "id": "license-storage",
+    "claim": "A supplied license stores only its token and last check result; after a valid check, it waits a day before checking again.",
+    "where": "privacy page and README",
+    "test": "npm test -- --grep @claim:license-storage",
+    "sandbox": "fresh browser context at /practice; assert empty storage before input, exact keys after restore, no repeat check within a day, and a new check after one day"
+  },
+  {
     "id": "five-minute-session",
     "claim": "Each practice desk starts with a five-minute timer.",
     "where": "landing headline and practice header",
