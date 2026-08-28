@@ -58,6 +58,7 @@ main { display: block; overflow: clip; }
 .hero-action > span { max-width: 16rem; color: #c6d1ce; font-size: .9rem; }
 .button { min-height: 48px; display: inline-flex; justify-content: center; align-items: center; padding: 12px 20px; border: 2px solid currentColor; border-radius: 3px; font-family: var(--display); font-weight: 800; letter-spacing: .05em; line-height: 1.1; text-align: center; text-transform: uppercase; text-decoration: none; box-shadow: 4px 4px 0 #08171a; transition: transform 120ms ease, box-shadow 120ms ease; }
 .button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #08171a; }
+.button:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
 .button.primary { color: var(--amber-ink); background: var(--amber); border-color: var(--amber); }
 .button.secondary { color: var(--cream); background: var(--panel-raised); border-color: var(--amber); }
 .plain-facts { list-style: none; padding: 0; margin: 40px 0 0; display: grid; gap: 8px; color: #d9e0dc; font-size: .93rem; }
@@ -94,6 +95,7 @@ main { display: block; overflow: clip; }
 .limits { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: clamp(72px, 10vw, 136px) max(24px, calc((100vw - 1300px) / 2)); background: var(--paper-deep); }
 .limits h2 { max-width: 10ch; }
 .limit-copy { max-width: 40rem; font-size: 1.12rem; color: #3f5452; border-left: 2px solid var(--amber); padding-left: 28px; }
+.limits .section-label { color: #3f5452; }
 .paid { position: relative; display: grid; grid-template-columns: .45fr 1fr; gap: 72px; align-items: center; padding: clamp(72px, 10vw, 136px) max(24px, calc((100vw - 1300px) / 2)); color: var(--cream); background: var(--panel-raised); }
 .paid > div:last-child { max-width: 42rem; }
 .paid h2 { max-width: 12ch; }
@@ -128,6 +130,7 @@ main { display: block; overflow: clip; }
 .drill-tab { min-width: 70px; min-height: 52px; padding: 6px 10px; display: grid; place-items: center; gap: 0; color: var(--ink); background: #eee5cc; border: 1px solid #7c8b84; border-radius: 2px; font: 800 .8rem/1.1 var(--display); letter-spacing: .04em; text-transform: uppercase; }
 .drill-tab span { font-size: .7rem; color: var(--muted); }
 .drill-tab.active { background: var(--amber); color: var(--amber-ink); border-color: #6c480b; box-shadow: inset 0 -4px 0 #bd7e18; }
+.drill-tab.active span { color: var(--amber-ink); }
 .drill-tab:disabled { opacity: .63; cursor: not-allowed; }
 .pack-note { margin: 0 0 16px; color: #405654; font-size: .85rem; }
 .desk-panel { max-width: 1180px; margin: auto; padding: clamp(16px, 3vw, 32px); background: var(--panel); color: var(--cream); border: 2px solid #071c20; box-shadow: 10px 12px 0 rgba(23,43,45,.24), inset 0 0 0 6px #1e3e43; }

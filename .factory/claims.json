@@ -1,0 +1,51 @@
+[
+  {
+    "id": "demo-sandbox",
+    "claim": "The demo starts with two sample scores and can be reset without saving data.",
+    "where": "landing primary action and demo banner",
+    "test": "npm test -- --grep @claim:demo-sandbox",
+    "sandbox": "fresh browser context at /demo; reset and inspect storage"
+  },
+  {
+    "id": "geometric-feedback",
+    "claim": "Each stroke returns its average distance from the target.",
+    "where": "landing live system and practice gauge",
+    "test": "npm test -- --grep @claim:geometric-feedback",
+    "sandbox": "fresh browser context at /demo; draw the line target and assert a numeric reading"
+  },
+  {
+    "id": "five-core-free",
+    "claim": "Five core drills are free.",
+    "where": "landing facts and paid tier",
+    "test": "npm test -- --grep @claim:five-core-free",
+    "sandbox": "fresh browser context at /practice; assert five enabled core drills and three locked pack drills"
+  },
+  {
+    "id": "local-practice",
+    "claim": "Practice strokes and scores stay in the current tab.",
+    "where": "landing facts, boundaries, privacy page, README",
+    "test": "npm test -- --grep @claim:local-practice",
+    "sandbox": "fresh browser context at /demo; intercept the full drawing flow and inspect localStorage"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "Works offline after the first visit.",
+    "where": "landing facts and README",
+    "test": "npm test -- --grep @claim:offline-reload",
+    "sandbox": "fresh browser context at /demo; wait for the service worker, set the context offline, and reload"
+  },
+  {
+    "id": "input-methods",
+    "claim": "The drawing area accepts pen, mouse, touch, and keyboard arrows.",
+    "where": "landing steps and drawing area instructions",
+    "test": "npm test -- --grep @claim:input-methods",
+    "sandbox": "fresh browser context at /practice; score a keyboard stroke and a browser Pointer Event stroke"
+  },
+  {
+    "id": "paid-pack",
+    "claim": "A $6 one-time license adds orbital rings, radar spokes, and gantry depth drills.",
+    "where": "landing paid tier and terms",
+    "test": "npm test -- --grep @claim:paid-pack",
+    "sandbox": "fresh browser context with a mocked valid Sociobot verification response; assert three enabled pack drills"
+  }
+]

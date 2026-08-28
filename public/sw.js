@@ -1,5 +1,6 @@
 const CACHE = 'pen-drills-v1';
-const SHELL = ['/', '/practice', '/demo', '/privacy', '/terms', '/offline.html', '/manifest.webmanifest', '/favicon.svg', '/assets/instrument-console.webp', '/assets/social-card.webp', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png'];
+const BUILD_ASSETS = /* inject:assets */ [];
+const SHELL = ['/', '/practice', '/demo', '/privacy', '/terms', '/offline.html', '/offline.css', '/manifest.webmanifest', '/favicon.svg', '/assets/instrument-console.webp', '/assets/social-card.webp', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png', ...BUILD_ASSETS];
 self.addEventListener('install', (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL))));
 self.addEventListener('activate', (event) => event.waitUntil(Promise.all([
   caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)))),
@@ -7,7 +8,7 @@ self.addEventListener('activate', (event) => event.waitUntil(Promise.all([
 ])));
 self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') self.skipWaiting();
-  if (event.data?.type === 'CACHE_URLS') event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(event.data.urls)));
+  if (event.data?.type === 'CACHE_URLS') event.waitUntil(caches.open(CACHE).then((cache) => Promise.allSettled(event.data.urls.map((url) => cache.add(url)))));
 });
 self.addEventListener('fetch', (event) => {
   const request = event.request;

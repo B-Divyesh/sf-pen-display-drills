@@ -95,7 +95,7 @@ function paidSection(): string {
 }
 
 function practicePage(isDemo: boolean): string {
-  const licensed = hasValidCachedLicense();
+  const licensed = isDemo ? false : hasValidCachedLicense();
   const coreButtons = drills.filter((drill) => !drill.paid).map((drill, index) => `<button type="button" class="drill-tab${index === (isDemo ? 2 : 0) ? ' active' : ''}" data-drill="${drill.id}" aria-pressed="${index === (isDemo ? 2 : 0)}"><span>${String(index + 1).padStart(2, '0')}</span>${drill.short}</button>`).join('');
   const packButtons = drills.filter((drill) => drill.paid).map((drill) => `<button type="button" class="drill-tab pack-tab" data-drill="${drill.id}" ${licensed ? '' : 'disabled'} aria-pressed="false"><span>${licensed ? '★' : '🔒'}</span>${drill.short}</button>`).join('');
   return shell(`<section class="practice-head">
@@ -254,6 +254,7 @@ function initPractice(isDemo: boolean): void {
   let completed = isDemo ? 2 : 0;
   const sampleScores = isDemo ? [82, 76] : [];
   let elapsed = 0;
+  const licenseActive = isDemo ? false : hasValidCachedLicense();
   const scoreNode = document.querySelector<HTMLElement>('[data-score]')!;
   const feedback = document.querySelector<HTMLElement>('[data-feedback]')!;
   const progress = document.querySelector<HTMLElement>('[data-progress]')!;
@@ -306,7 +307,7 @@ function initPractice(isDemo: boolean): void {
     context.stroke();
   }
 
-  function canvasPoint(event: PointerEvent): Point {
+  function canvasPoint(event: PointerEvent | MouseEvent): Point {
     const box = canvas.getBoundingClientRect();
     return { x: event.clientX - box.left, y: event.clientY - box.top };
   }
@@ -367,7 +368,7 @@ function initPractice(isDemo: boolean): void {
 
   function selectDrill(id: string): void {
     const nextIndex = drills.findIndex((drill) => drill.id === id);
-    if (nextIndex < 0 || (drills[nextIndex].paid && !hasValidCachedLicense())) return;
+    if (nextIndex < 0 || (drills[nextIndex].paid && !licenseActive)) return;
     drillIndex = nextIndex;
     document.querySelectorAll<HTMLButtonElement>('[data-drill]').forEach((button) => { const active = button.dataset.drill === id; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
     const drill = currentDrill();
@@ -378,10 +379,14 @@ function initPractice(isDemo: boolean): void {
     resetDrill();
   }
 
-  canvas.addEventListener('pointerdown', (event) => { event.preventDefault(); canvas.setPointerCapture(event.pointerId); canvas.focus(); startStroke(canvasPoint(event)); });
+  canvas.addEventListener('pointerdown', (event) => { event.preventDefault(); try { canvas.setPointerCapture(event.pointerId); } catch { /* Synthetic and older pointer sources may not support capture. */ } canvas.focus(); startStroke(canvasPoint(event)); });
   canvas.addEventListener('pointermove', (event) => { if (pointerDown) { event.preventDefault(); addPoint(canvasPoint(event)); } });
   canvas.addEventListener('pointerup', endStroke);
   canvas.addEventListener('pointercancel', endStroke);
+  canvas.addEventListener('mousedown', (event) => { if (!pointerDown) { canvas.focus(); startStroke(canvasPoint(event)); } });
+  canvas.addEventListener('mousemove', (event) => { if (pointerDown) addPoint(canvasPoint(event)); });
+  canvas.addEventListener('mouseup', endStroke);
+  canvas.addEventListener('mouseleave', () => { if (pointerDown && !('PointerEvent' in window)) endStroke(); });
   canvas.addEventListener('keydown', (event) => {
     const step = event.shiftKey ? 10 : 3;
     if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'r', 'R', 'n', 'N'].includes(event.key)) event.preventDefault();
@@ -413,7 +418,7 @@ function initPractice(isDemo: boolean): void {
     document.querySelector<HTMLElement>('[data-session-summary]')!.hidden = false;
     document.querySelector<HTMLButtonElement>('[data-next]')!.focus();
   });
-  document.querySelector<HTMLButtonElement>('[data-next]')!.addEventListener('click', () => { let next = (drillIndex + 1) % drills.length; if (drills[next].paid && !hasValidCachedLicense()) next = 0; selectDrill(drills[next].id); document.querySelector<HTMLElement>('.desk')!.hidden = false; });
+  document.querySelector<HTMLButtonElement>('[data-next]')!.addEventListener('click', () => { let next = (drillIndex + 1) % drills.length; if (drills[next].paid && !licenseActive) next = 0; selectDrill(drills[next].id); document.querySelector<HTMLElement>('.desk')!.hidden = false; });
   document.querySelector<HTMLButtonElement>('[data-redo]')!.addEventListener('click', resetDrill);
   document.querySelector<HTMLButtonElement>('[data-reset-demo]')?.addEventListener('click', () => { drillIndex = 2; completed = 2; sampleScores.splice(0, sampleScores.length, 82, 76); document.querySelector<HTMLElement>('[data-completed]')!.textContent = '2 sample drills complete'; selectDrill('box'); });
   new ResizeObserver(resizeCanvas).observe(canvas);
