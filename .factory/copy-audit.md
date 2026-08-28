@@ -71,7 +71,7 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 
 ## Catalog description
 
-“Practice tablet lines and perspective with five-minute feedback drills.” — 9 words, 68 characters, begins with a verb.
+“Practice tablet lines and perspective with five-minute feedback drills.” — 9 words, 71 characters, begins with a verb.
 
 ## Review 1 README rewrites
 
