@@ -42,6 +42,13 @@
     "sandbox": "fresh browser context at /practice; score keyboard input and synthetic mouse, pen, and touch Pointer Events"
   },
   {
+    "id": "license-restore",
+    "claim": "Existing Space Pack licenses can be restored by pasting the token.",
+    "where": "practice desk restore control",
+    "test": "npm test -- --grep @claim:license-restore",
+    "sandbox": "fresh browser context at /practice; mock a valid Sociobot verification response, paste a token, and assert the three pack drills unlock"
+  },
+  {
     "id": "five-minute-session",
     "claim": "Each practice desk starts with a five-minute timer.",
     "where": "landing headline and practice header",

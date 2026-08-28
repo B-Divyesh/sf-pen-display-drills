@@ -28,7 +28,7 @@ npm test
 npm run build
 ```
 
-`npm test` runs unit tests and Playwright browser tests. The claim tests cover offline reload, local-only practice, geometric feedback, demo reset, input methods, free drills, the five-minute timer, and account-free use.
+`npm test` runs unit tests and Playwright browser tests. The claim tests cover offline reload, local-only practice, geometric feedback, demo reset, input methods, free drills, legacy-license restore, the five-minute timer, and account-free use.
 
 `npm run build` runs TypeScript checks and writes the static deployment to `dist/`. The first visit installs a service worker. A visited drill can then reload offline.
 
@@ -38,7 +38,7 @@ Deploy the contents of `dist/` as a static site. `staticwebapp.config.json` supp
 
 ## Privacy
 
-Drawings, pressure information, and practice scores are not uploaded or persisted. Legacy license verification stores a returned license and its daily verification result only when a license is supplied. Read the in-product [privacy page](https://pen-display-drills.sociobot.in/privacy) and [terms](https://pen-display-drills.sociobot.in/terms).
+Drawings, pressure information, and practice scores are not uploaded or persisted. Existing Space Pack licenses can be restored from the practice desk; verification stores a supplied token and its daily verification result only when a license is supplied. Read the in-product [privacy page](https://pen-display-drills.sociobot.in/privacy) and [terms](https://pen-display-drills.sociobot.in/terms).
 
 ## Project notes
 

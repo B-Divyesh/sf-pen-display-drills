@@ -126,6 +126,17 @@ test('@claim:input-methods accepts pen, mouse, touch, and keyboard drawing', asy
   }
 });
 
+test('@claim:license-restore restores a legacy Space pack license from the practice desk', async ({ page }) => {
+  await page.route('https://api.sociobot.in/api/v1/products/pen-display-drills/verify?license=restored-license', (route) => route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } }));
+  await page.goto('/practice');
+  await page.getByText('Have a license? Paste it', { exact: true }).click();
+  await page.getByLabel('License token').fill('restored-license');
+  await page.getByRole('button', { name: 'Restore license' }).click();
+  await expect(page.getByText('License verified. The space pack is now active.')).toBeVisible();
+  await expect.poll(() => page.locator('.pack-tab:not([disabled])').count()).toBe(3);
+  expect(await page.evaluate(() => localStorage.getItem('sb_license:pen-display-drills'))).toBe('restored-license');
+});
+
 test('a valid returned license still opens the three legacy themed drills', async ({ page }) => {
   await page.route('https://api.sociobot.in/api/v1/products/pen-display-drills/verify?license=sample-license', (route) => route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } }));
   await page.goto('/practice?license=sample-license');
@@ -143,8 +154,30 @@ test('@claim:five-minute-session starts every practice desk at five minutes', as
 test('@claim:account-free opens the five core drills without an account or saved practice data', async ({ page }) => {
   await page.goto('/practice');
   await expect(page.locator('[data-drill]:not(.pack-tab)')).toHaveCount(5);
-  await expect(page.locator('input, [role="dialog"]')).toHaveCount(0);
+  await expect(page.locator('input[type="email"], input[type="password"], [role="dialog"]')).toHaveCount(0);
   expect(await page.evaluate(() => ({ local: Object.keys(localStorage), session: Object.keys(sessionStorage), cookies: document.cookie }))).toEqual({ local: [], session: [], cookies: '' });
+});
+
+test('home metadata does not make an unprovable universal tablet compatibility claim', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', 'Practice straight lines, ellipses, boxes, and perspective with immediate geometric feedback.');
+  await expect(page.locator('body')).not.toContainText('any drawing tablet');
+});
+
+test('the license restore control works by keyboard and fits a 390px screen', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/practice');
+  const restore = page.getByText('Have a license? Paste it', { exact: true });
+  await restore.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByLabel('License token')).toBeVisible();
+  for (const control of [restore, page.getByLabel('License token'), page.getByRole('button', { name: 'Restore license' })]) {
+    const box = await control.boundingBox();
+    expect(box).not.toBeNull();
+    expect(Math.min(box?.width ?? 0, box?.height ?? 0)).toBeGreaterThanOrEqual(44);
+  }
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
+  expect(results.violations.filter((item) => ['serious', 'critical'].includes(item.impact ?? ''))).toEqual([]);
 });
 
 test('requires distinct target coverage before completing a box drill', async ({ page }) => {

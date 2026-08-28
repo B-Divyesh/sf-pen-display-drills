@@ -13,7 +13,7 @@ type Stroke = { points: Point[]; score: number };
 let returnedLicenseToken: string | null = null;
 
 const routeData: Record<string, { title: string; description: string }> = {
-  '/': { title: 'Pen Display Drills — five-minute drawing practice', description: 'Practice straight lines, ellipses, boxes, and perspective with immediate geometric feedback on any drawing tablet.' },
+  '/': { title: 'Pen Display Drills — five-minute drawing practice', description: 'Practice straight lines, ellipses, boxes, and perspective with immediate geometric feedback.' },
   '/demo': { title: 'Demo — Pen Display Drills', description: 'Try a sample five-minute drawing drill without saving practice data.' },
   '/practice': { title: 'Practice — Pen Display Drills', description: 'Practice line control and perspective with immediate geometric feedback.' },
   '/privacy': { title: 'Privacy — Pen Display Drills', description: 'How Pen Display Drills handles practice data and licenses.' },
@@ -103,7 +103,7 @@ function practicePage(isDemo: boolean): string {
   </section>
   <section class="desk" aria-label="Drawing drill desk">
     <div class="selector"><div><span class="selector-label">Core drills</span>${coreButtons}</div><div><span class="selector-label">Space pack</span>${packButtons}</div></div>
-    ${!licensed ? `<p class="pack-note">The five core drills are available in this release.</p>` : ''}
+    ${!licensed ? `<div class="pack-note"><p>The five core drills are available in this release.</p>${isDemo ? '' : licenseRestoreForm()}</div>` : ''}
     <div class="desk-panel">
       <div class="drill-readout"><div><span class="readout-number" data-drill-number>${isDemo ? '03' : '01'}</span><div><h2 data-drill-name>${isDemo ? 'Box' : 'Straight line'}</h2><p data-drill-instruction></p></div></div><button type="button" class="quiet-button" data-help aria-expanded="false">Keyboard controls</button></div>
       <div class="keyboard-help" data-keyboard-help hidden><p>Focus the drawing area. Use arrow keys to move the crosshair. Press Space to lower or lift the pen. Press R to reset and N for the next drill.</p></div>
@@ -117,6 +117,17 @@ function practicePage(isDemo: boolean): string {
     </div>
   </section>
   <section class="session-summary" data-session-summary hidden aria-labelledby="summary-heading"><div class="section-label">Session reading</div><h2 id="summary-heading">Drill complete</h2><p data-summary-copy></p><div><button type="button" class="button primary" data-next>Try the next drill</button><button type="button" class="quiet-button" data-redo>Repeat this drill</button></div></section>`, isDemo);
+}
+
+function licenseRestoreForm(): string {
+  return `<details class="restore">
+    <summary>Have a license? Paste it</summary>
+    <form data-license-form>
+      <label for="license-token">License token</label>
+      <div><input id="license-token" name="license" type="text" autocomplete="off" spellcheck="false" required aria-describedby="license-message"><button type="submit">Restore license</button></div>
+      <p id="license-message" class="form-message" data-license-message aria-live="polite"></p>
+    </form>
+  </details>`;
 }
 
 function legalPage(kind: 'privacy' | 'terms'): string {
@@ -213,7 +224,7 @@ async function handleLicenseSubmit(event: SubmitEvent): Promise<void> {
     localStorage.setItem(LICENSE_KEY, token);
     const valid = await verifyLicense(token);
     if (valid) { message.textContent = 'License verified. The space pack is now active.'; setTimeout(render, 500); }
-    else { localStorage.removeItem(LICENSE_KEY); message.textContent = 'This license is not active. Check the token or buy the pack.'; }
+    else { localStorage.removeItem(LICENSE_KEY); message.textContent = 'This license is not active. Check the token and try again.'; }
   } catch {
     message.textContent = 'The license could not be checked. Reconnect and try again.';
   }

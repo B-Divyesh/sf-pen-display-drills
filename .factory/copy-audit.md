@@ -53,6 +53,8 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 | The free drill desk is the complete current release. | 10 | Pass |
 | It includes line control, ellipses, boxes, and one- and two-point perspective. | 11 | Pass |
 | Read the practice terms. | 4 | Pass |
+| Have a license? Paste it | 5 | Control; pass |
+| This license is not active. Check the token and try again. | 11 | Error; pass |
 | Five-minute drawing practice with geometric feedback. | 6 | Footer; pass |
 | Console artwork generated for this product. | 6 | Footer; pass |
 
