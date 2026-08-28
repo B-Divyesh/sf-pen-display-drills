@@ -91,5 +91,6 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 | A practice desk, not a drawing app | 7 | Pass; one work-surface term |
 | The free practice desk is the complete current release. | 9 | Pass; one work-surface term |
 | License verification sends the token you paste to Sociobot. | 9 | Pass; `license-verification-privacy` |
+| They also cover free drills, license restore, license storage, license privacy, the timer, and account-free use. | 16 | Pass; README claim inventory |
 
 The visitor-facing name is “demo” throughout the landing page and README. The work surface is always “practice desk.” Technical namespace details remain in `.factory/demo.md`.

@@ -1,0 +1,418 @@
+clean clone: /tmp/pen-display-polish-2-wyevlC
+npm warn deprecated eslint@9.39.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 159 packages, and audited 160 packages in 2s
+
+51 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+== npm test -- --grep @claim:demo-sandbox ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:demo-sandbox
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 6ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:53:35
+   Duration  520ms (transform 87ms, setup 0ms, collect 61ms, tests 6ms, environment 0ms, prepare 98ms)
+
+[WebServer] (node:2858) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:2900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:2918) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2918) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:6:1 › @claim:demo-sandbox opens a seeded demo and resets it (661ms)
+
+  1 passed (5.3s)
+
+== npm test -- --grep @claim:geometric-feedback ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:geometric-feedback
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 10ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:53:42
+   Duration  558ms (transform 68ms, setup 0ms, collect 61ms, tests 10ms, environment 0ms, prepare 102ms)
+
+[WebServer] (node:3162) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:3204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3222) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3222) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:26:1 › @claim:geometric-feedback returns an observable distance score (849ms)
+
+  1 passed (5.3s)
+
+== npm test -- --grep @claim:five-core-free ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:five-core-free
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 6ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:53:50
+   Duration  527ms (transform 106ms, setup 0ms, collect 79ms, tests 6ms, environment 0ms, prepare 86ms)
+
+[WebServer] (node:3469) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:3511) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3530) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3530) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:45:1 › @claim:five-core-free keeps all five core drills available (533ms)
+
+  1 passed (4.9s)
+
+== npm test -- --grep @claim:local-practice ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:local-practice
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:53:57
+   Duration  516ms (transform 72ms, setup 0ms, collect 72ms, tests 7ms, environment 0ms, prepare 117ms)
+
+[WebServer] (node:3774) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:3816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3835) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3835) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:54:1 › @claim:local-practice sends no demo data off origin or stores it (828ms)
+
+  1 passed (5.3s)
+
+== npm test -- --grep @claim:offline-reload ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:offline-reload
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:54:05
+   Duration  530ms (transform 63ms, setup 0ms, collect 75ms, tests 8ms, environment 0ms, prepare 118ms)
+
+[WebServer] (node:4082) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:4125) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:79:1 › @claim:offline-reload reloads the demo without a network (998ms)
+
+  1 passed (5.4s)
+
+== npm test -- --grep @claim:input-methods ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:input-methods
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 6ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:54:12
+   Duration  547ms (transform 59ms, setup 0ms, collect 68ms, tests 6ms, environment 0ms, prepare 91ms)
+
+[WebServer] (node:4389) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:4431) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4450) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4450) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:110:1 › @claim:input-methods accepts pen, mouse, touch, and keyboard drawing (1.4s)
+
+  1 passed (5.9s)
+
+== npm test -- --grep @claim:license-restore ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:license-restore
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:54:21
+   Duration  532ms (transform 61ms, setup 0ms, collect 59ms, tests 7ms, environment 0ms, prepare 70ms)
+
+[WebServer] (node:4695) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:4738) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:134:1 › @claim:license-restore restores a legacy Space pack license from the practice desk (1.6s)
+
+  1 passed (6.1s)
+
+== npm test -- --grep @claim:license-storage ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:license-storage
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:54:29
+   Duration  527ms (transform 95ms, setup 0ms, collect 65ms, tests 7ms, environment 0ms, prepare 95ms)
+
+[WebServer] (node:5001) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:5043) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5061) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5061) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:145:1 › @claim:license-storage stores only a supplied token and its daily check result (1.2s)
+
+  1 passed (5.7s)
+
+== npm test -- --grep @claim:license-verification-privacy ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:license-verification-privacy
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:54:37
+   Duration  528ms (transform 81ms, setup 0ms, collect 75ms, tests 7ms, environment 0ms, prepare 61ms)
+
+[WebServer] (node:5308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:5350) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:179:1 › @claim:license-verification-privacy sends only the pasted token to Sociobot (1.2s)
+
+  1 passed (5.6s)
+
+== npm test -- --grep @claim:five-minute-session ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:five-minute-session
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 6ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:54:45
+   Duration  535ms (transform 120ms, setup 0ms, collect 85ms, tests 6ms, environment 0ms, prepare 87ms)
+
+[WebServer] (node:5612) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:5654) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:222:1 › @claim:five-minute-session starts every practice desk at five minutes (407ms)
+
+  1 passed (4.9s)
+
+== npm test -- --grep @claim:account-free ==
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:account-free
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:54:52
+   Duration  532ms (transform 63ms, setup 0ms, collect 57ms, tests 7ms, environment 0ms, prepare 112ms)
+
+[WebServer] (node:5899) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:5941) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5962) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5962) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:227:1 › @claim:account-free opens the five core drills without an account or saved practice data (506ms)
+
+  1 passed (4.9s)
+
+> pen-display-drills@1.0.0 typecheck
+> tsc --noEmit
+
+
+> pen-display-drills@1.0.0 lint
+> eslint .
+
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test
+
+
+ RUN  v3.2.7 /tmp/pen-display-polish-2-wyevlC
+
+ ✓ src/drills.test.ts (6 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:55:03
+   Duration  558ms (transform 142ms, setup 0ms, collect 76ms, tests 8ms, environment 0ms, prepare 133ms)
+
+[WebServer] (node:6254) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 1 worker
+
+(node:6314) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6314) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/product.spec.ts:6:1 › @claim:demo-sandbox opens a seeded demo and resets it (639ms)
+  ✓   2 [chromium] › tests/product.spec.ts:26:1 › @claim:geometric-feedback returns an observable distance score (731ms)
+  ✓   3 [chromium] › tests/product.spec.ts:45:1 › @claim:five-core-free keeps all five core drills available (400ms)
+  ✓   4 [chromium] › tests/product.spec.ts:54:1 › @claim:local-practice sends no demo data off origin or stores it (744ms)
+  ✓   5 [chromium] › tests/product.spec.ts:79:1 › @claim:offline-reload reloads the demo without a network (768ms)
+  ✓   6 [chromium] › tests/product.spec.ts:110:1 › @claim:input-methods accepts pen, mouse, touch, and keyboard drawing (1.3s)
+  ✓   7 [chromium] › tests/product.spec.ts:134:1 › @claim:license-restore restores a legacy Space pack license from the practice desk (1.6s)
+  ✓   8 [chromium] › tests/product.spec.ts:145:1 › @claim:license-storage stores only a supplied token and its daily check result (829ms)
+  ✓   9 [chromium] › tests/product.spec.ts:179:1 › @claim:license-verification-privacy sends only the pasted token to Sociobot (3.0s)
+  ✓  10 [chromium] › tests/product.spec.ts:213:1 › a valid returned license still opens the three legacy themed drills (389ms)
+  ✓  11 [chromium] › tests/product.spec.ts:222:1 › @claim:five-minute-session starts every practice desk at five minutes (296ms)
+  ✓  12 [chromium] › tests/product.spec.ts:227:1 › @claim:account-free opens the five core drills without an account or saved practice data (298ms)
+  ✓  13 [chromium] › tests/product.spec.ts:234:1 › home metadata does not make an unprovable universal tablet compatibility claim (383ms)
+  ✓  14 [chromium] › tests/product.spec.ts:240:1 › the license restore control works by keyboard and fits a 390px screen (1.1s)
+  ✓  15 [chromium] › tests/product.spec.ts:256:1 › license recovery label and error text retain 4.5:1 contrast on the drafting desk (375ms)
+  ✓  16 [chromium] › tests/product.spec.ts:286:1 › the mobile demo status and reset controls stay visible while drawing (352ms)
+  ✓  17 [chromium] › tests/product.spec.ts:301:1 › immutable artwork URLs are content-addressed (6ms)
+  ✓  18 [chromium] › tests/product.spec.ts:318:1 › requires distinct target coverage before completing a box drill (2.3s)
+  ✓  19 [chromium] › tests/product.spec.ts:342:1 › the N shortcut skips locked drills at the free-pack boundary (378ms)
+  ✓  20 [chromium] › tests/product.spec.ts:350:1 › a returned invalid license verifies only once and is removed (351ms)
+  ✓  21 [chromium] › tests/product.spec.ts:362:1 › the cold desktop first screen keeps its first action and facts in view (475ms)
+  ✓  22 [chromium] › tests/product.spec.ts:371:1 › mobile interactive controls meet the 44px touch-target baseline (870ms)
+  ✓  23 [chromium] › tests/product.spec.ts:382:3 › accessible page structure on / (1.0s)
+  ✓  24 [chromium] › tests/product.spec.ts:382:3 › accessible page structure on /demo (987ms)
+  ✓  25 [chromium] › tests/product.spec.ts:382:3 › accessible page structure on /practice (1.0s)
+  ✓  26 [chromium] › tests/product.spec.ts:382:3 › accessible page structure on /privacy (858ms)
+  ✓  27 [chromium] › tests/product.spec.ts:382:3 › accessible page structure on /terms (781ms)
+  ✓  28 [chromium] › tests/product.spec.ts:382:3 › accessible page structure on /missing-page (787ms)
+  ✓  29 [chromium] › tests/product.spec.ts:393:1 › mobile practice fits a 390px screen (245ms)
+  ✓  30 [chromium] › tests/product.spec.ts:401:1 › history navigation restores routes (480ms)
+
+  30 passed (28.6s)
+
+> pen-display-drills@1.0.0 build
+> tsc --noEmit && vite build && node scripts/inject-sw.mjs
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 5 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  2.02 kB │ gzip: 0.71 kB
+dist/assets/index-n1nu-weV.css  20.49 kB │ gzip: 5.54 kB
+dist/assets/index-Dnu8aUML.js   27.40 kB │ gzip: 9.82 kB
+✓ built in 182ms
+found 0 vulnerabilities

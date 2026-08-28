@@ -1,0 +1,80 @@
+{
+  "routes": {
+    "/": {
+      "status": 200,
+      "title": "Pen Display Drills — five-minute drawing practice",
+      "canonical": "https://pen-display-drills.sociobot.in/"
+    },
+    "/demo": {
+      "status": 200,
+      "title": "Demo — Pen Display Drills",
+      "canonical": "https://pen-display-drills.sociobot.in/demo"
+    },
+    "/practice": {
+      "status": 200,
+      "title": "Practice — Pen Display Drills",
+      "canonical": "https://pen-display-drills.sociobot.in/practice"
+    },
+    "/privacy": {
+      "status": 200,
+      "title": "Privacy — Pen Display Drills",
+      "canonical": "https://pen-display-drills.sociobot.in/privacy"
+    },
+    "/terms": {
+      "status": 200,
+      "title": "Terms — Pen Display Drills",
+      "canonical": "https://pen-display-drills.sociobot.in/terms"
+    },
+    "/missing-page": {
+      "status": 404,
+      "title": "Page not found — Pen Display Drills",
+      "canonical": "https://pen-display-drills.sociobot.in/missing-page"
+    }
+  },
+  "axe": {
+    "/": [],
+    "/demo": [],
+    "/practice": [],
+    "/privacy": [],
+    "/terms": [],
+    "/missing-page": []
+  },
+  "requests": {
+    "license": [
+      {
+        "url": "https://api.sociobot.in/api/v1/products/pen-display-drills/verify?license=live-privacy-token",
+        "method": "GET",
+        "body": null
+      }
+    ]
+  },
+  "firstScreen": {
+    "390x844": {
+      "actionBottom": 625.046875,
+      "factsBottom": 774.515625
+    },
+    "1440x900": {
+      "actionBottom": 716.953125,
+      "factsBottom": 826.09375
+    }
+  },
+  "demo": {
+    "canonicalPath": "/demo",
+    "scores": [
+      82,
+      76
+    ],
+    "outsideRequests": [],
+    "sentinelPreserved": true,
+    "stickyBanner": true
+  },
+  "offline": {
+    "status": 200,
+    "banner": true,
+    "scores": [
+      82,
+      76
+    ]
+  },
+  "consoleErrors": []
+}
