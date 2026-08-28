@@ -28,7 +28,7 @@ npm test
 npm run build
 ```
 
-`npm test` runs unit tests and Playwright browser tests. Claim tests cover offline reload, local practice, feedback, demo reset, and input methods. They also cover free drills, license restore, license storage, the timer, and account-free use.
+`npm test` runs unit tests and Playwright browser tests. Claim tests cover offline reload, local practice, feedback, demo reset, and input methods. They also cover free drills, license restore, license storage, license privacy, the timer, and account-free use.
 
 `npm run build` runs TypeScript checks and writes the static deployment to `dist/`. The first visit installs a service worker. A visited drill can then reload offline.
 

@@ -77,7 +77,7 @@ function homePage(): string {
     <ol><li><span>01</span><div><h3>Pick a target</h3><p>Choose lines, ellipses, boxes, or perspective.</p></div></li><li><span>02</span><div><h3>Draw over the guide</h3><p>Use a pen, mouse, touch, or arrow keys.</p></div></li><li><span>03</span><div><h3>Read the gauge</h3><p>Adjust your next stroke using the distance score.</p></div></li></ol>
   </section>
   <section class="limits" aria-labelledby="limits-heading">
-    <div><div class="section-label">Boundaries</div><h2 id="limits-heading">A drill desk, not a drawing app</h2></div>
+    <div><div class="section-label">Boundaries</div><h2 id="limits-heading">A practice desk, not a drawing app</h2></div>
     <div class="limit-copy"><p>There are no brushes, layers, feeds, or automated critique. The desk measures geometry and leaves the artistic choices to you.</p><p>Your strokes stay in memory and disappear when the tab closes. Only an optional paid license is stored on this device.</p></div>
   </section>
   ${paidSection()}`);
@@ -87,7 +87,7 @@ function paidSection(): string {
   const licensed = hasValidCachedLicense();
   return `<section class="paid ruler-edge" aria-labelledby="paid-heading">
     <div class="paid-dial" aria-hidden="true"><span></span></div>
-    <div><p class="eyebrow">Current release</p><h2 id="paid-heading">Five focused drills, ready to use</h2><p>The free drill desk is the complete current release. It includes line control, ellipses, boxes, and one- and two-point perspective.</p>
+    <div><p class="eyebrow">Current release</p><h2 id="paid-heading">Five focused drills, ready to use</h2><p>The free practice desk is the complete current release. It includes line control, ellipses, boxes, and one- and two-point perspective.</p>
     ${licensed ? `<p class="license-ok"><span aria-hidden="true">●</span> Space drafting pack active</p>` : ''}
     <p class="fine-print">Read the <a href="/terms" data-link>practice terms</a>.</p></div>
   </section>`;
@@ -101,7 +101,7 @@ function practicePage(isDemo: boolean): string {
     <div><p class="eyebrow">Calibration session · 05:00</p><h1 tabindex="-1">Train your hand for five minutes</h1><p>Draw over each amber target. Use the reading to adjust your next stroke.</p></div>
     <div class="session-meter"><span>Session time</span><strong data-timer>05:00</strong><span data-completed>${isDemo ? '2 sample drills complete' : 'No drills complete yet'}</span>${isDemo ? '<p class="sample-history"><span>Sample scores</span><strong data-sample-scores>82/100 · 76/100</strong></p>' : ''}</div>
   </section>
-  <section class="desk" aria-label="Drawing drill desk">
+  <section class="desk" aria-label="Drawing practice desk">
     <div class="selector"><div><span class="selector-label">Core drills</span>${coreButtons}</div><div><span class="selector-label">Space pack</span>${packButtons}</div></div>
     ${!licensed ? `<div class="pack-note"><p>The five core drills are available in this release.</p>${isDemo ? '' : licenseRestoreForm()}</div>` : ''}
     <div class="desk-panel">
@@ -131,7 +131,7 @@ function licenseRestoreForm(): string {
 }
 
 function legalPage(kind: 'privacy' | 'terms'): string {
-  if (kind === 'privacy') return shell(`<article class="legal"><p class="eyebrow">Policy · effective 28 August 2026</p><h1 tabindex="-1">Your strokes stay on your device</h1><p>Pen Display Drills does not send or save drawings, pen pressure, or practice scores. Practice exists only in the current tab.</p><h2>What this site stores</h2><p>The service worker caches app files for offline use. If you supply an existing license, this browser stores its token and last verification result.</p><h2>What leaves your device</h2><p>No practice data leaves your device. License verification sends only a supplied license token to Sociobot when needed.</p><h2>Remove stored data</h2><p>Clear this site's browser data to remove cached app files and your license. Closing the tab removes every practice stroke and score.</p><h2>Contact</h2><p>Email <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with privacy questions.</p></article>`);
+  if (kind === 'privacy') return shell(`<article class="legal"><p class="eyebrow">Policy · effective 28 August 2026</p><h1 tabindex="-1">Your strokes stay on your device</h1><p>Pen Display Drills does not send or save drawings, pen pressure, or practice scores. Practice exists only in the current tab.</p><h2>What this site stores</h2><p>The service worker caches app files for offline use. If you supply an existing license, this browser stores its token and last verification result.</p><h2>What leaves your device</h2><p>No practice data leaves your device. License verification sends the token you paste to Sociobot.</p><h2>Remove stored data</h2><p>Clear this site's browser data to remove cached app files and your license. Closing the tab removes every practice stroke and score.</p><h2>Contact</h2><p>Email <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with privacy questions.</p></article>`);
   return shell(`<article class="legal"><p class="eyebrow">Terms · effective 28 August 2026</p><h1 tabindex="-1">Use the drills for personal practice</h1><p>You may use the five core drills without an account. The software is provided as-is and does not replace art instruction or medical advice.</p><h2>Practice content</h2><p>The current release includes five free drills.</p><h2>Fair use</h2><p>Do not interfere with the service or resell a license token. You keep ownership of anything you draw.</p><h2>Changes and contact</h2><p>Material changes will appear on this page with a new effective date. Email <a href="mailto:support@sociobot.in">support@sociobot.in</a> for help.</p></article>`);
 }
 

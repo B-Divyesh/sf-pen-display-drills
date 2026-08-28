@@ -44,13 +44,13 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 
 | Copy | Words | Result |
 | --- | ---: | --- |
-| A drill desk, not a drawing app | 7 | Heading; pass |
+| A practice desk, not a drawing app | 7 | Heading; pass |
 | There are no brushes, layers, feeds, or automated critique. | 9 | Pass |
-| The desk measures geometry and leaves the artistic choices to you. | 10 | Pass |
+| The desk measures geometry and leaves the artistic choices to you. | 11 | Pass |
 | Your strokes stay in memory and disappear when the tab closes. | 11 | Pass |
 | Only an optional paid license is stored on this device. | 10 | Pass |
 | Five focused drills, ready to use | 6 | Heading; pass |
-| The free drill desk is the complete current release. | 10 | Pass |
+| The free practice desk is the complete current release. | 9 | Pass |
 | It includes line control, ellipses, boxes, and one- and two-point perspective. | 11 | Pass |
 | Read the practice terms. | 4 | Pass |
 | Have a license? Paste it | 5 | Control; pass |
@@ -71,7 +71,7 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 
 ## Catalog description
 
-“Practice tablet lines and perspective with five-minute feedback drills.” — 9 words, 71 characters, begins with a verb.
+“Practice steadier tablet lines and perspective in five-minute feedback drills.” — 10 words, 78 characters, begins with a verb.
 
 ## Review 1 README rewrites
 
@@ -84,4 +84,12 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 | After a valid check, it waits a day before checking again. | 11 | Pass |
 | The demo does not save or use your practice data. | 10 | Pass |
 
-The visitor-facing name is “demo” throughout the landing page and README. Technical namespace details remain in `.factory/demo.md`.
+## Review 2 rewrites
+
+| Copy | Words | Result |
+| --- | ---: | --- |
+| A practice desk, not a drawing app | 7 | Pass; one work-surface term |
+| The free practice desk is the complete current release. | 9 | Pass; one work-surface term |
+| License verification sends the token you paste to Sociobot. | 9 | Pass; `license-verification-privacy` |
+
+The visitor-facing name is “demo” throughout the landing page and README. The work surface is always “practice desk.” Technical namespace details remain in `.factory/demo.md`.

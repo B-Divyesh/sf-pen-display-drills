@@ -176,6 +176,40 @@ test('@claim:license-storage stores only a supplied token and its daily check re
   await expect.poll(() => checks).toBe(2);
 });
 
+test('@claim:license-verification-privacy sends only the pasted token to Sociobot', async ({ page }) => {
+  const crossOriginRequests: Array<{ url: string; method: string; body: string | null }> = [];
+  page.on('request', (request) => {
+    if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') {
+      crossOriginRequests.push({ url: request.url(), method: request.method(), body: request.postData() });
+    }
+  });
+  await page.route('https://api.sociobot.in/**', (route) => route.fulfill({
+    json: { valid: true, reason: 'ok', expires_at: null },
+  }));
+
+  await page.goto('/practice');
+  const canvas = page.locator('canvas');
+  await canvas.focus();
+  await page.keyboard.press('Space');
+  for (let index = 0; index < 8; index += 1) await page.keyboard.press('Shift+ArrowRight');
+  await page.keyboard.press('Space');
+  await expect(page.locator('[data-score]')).toHaveText(/\d+\/100/);
+
+  await page.getByText('Have a license? Paste it', { exact: true }).click();
+  await page.getByLabel('License token').fill('privacy-token');
+  await page.getByRole('button', { name: 'Restore license' }).click();
+  await expect(page.getByText('License verified. The space pack is now active.')).toBeVisible();
+
+  expect(crossOriginRequests).toHaveLength(1);
+  const request = crossOriginRequests[0];
+  const url = new URL(request.url);
+  expect(url.origin).toBe('https://api.sociobot.in');
+  expect(url.pathname).toBe('/api/v1/products/pen-display-drills/verify');
+  expect([...url.searchParams.entries()]).toEqual([['license', 'privacy-token']]);
+  expect(request.method).toBe('GET');
+  expect(request.body).toBeNull();
+});
+
 test('a valid returned license still opens the three legacy themed drills', async ({ page }) => {
   await page.route('https://api.sociobot.in/api/v1/products/pen-display-drills/verify?license=sample-license', (route) => route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } }));
   await page.goto('/practice?license=sample-license');

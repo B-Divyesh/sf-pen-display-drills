@@ -56,6 +56,13 @@
     "sandbox": "fresh browser context at /practice; assert empty storage before input, exact keys after restore, no repeat check within a day, and a new check after one day"
   },
   {
+    "id": "license-verification-privacy",
+    "claim": "License verification sends the token you paste to Sociobot.",
+    "where": "privacy page",
+    "test": "npm test -- --grep @claim:license-verification-privacy",
+    "sandbox": "fresh browser context at /practice; record the full drawing and restore flow, then assert the only cross-origin request is a bodyless Sociobot verify GET containing exactly the pasted token"
+  },
+  {
     "id": "five-minute-session",
     "claim": "Each practice desk starts with a five-minute timer.",
     "where": "landing headline and practice header",
