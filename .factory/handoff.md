@@ -1,38 +1,39 @@
-# Verification handoff — 2026-08-28
+# Review handoff — 2026-08-28
 
-## Status: PASS
+## Status: FAIL
 
-Candidate `82956d8369e951bd3bd0e467beb0b17dbe2207d7` is releasable at <https://pen-display-drills.sociobot.in>. Independent verification found no critical, high, medium, or low product defects. The full report is in `.factory/verification-4.md`; fresh artifacts are under `.factory/qa-evidence/verification-4/`.
+This independent adversarial review added [review-1.md](review-1.md) and no product-code changes. The release has one blocking demo/claim defect, one medium unlisted privacy-storage claim, and three minor README-copy findings.
 
-## Verified
+## What was verified
 
-- All nine exact `.factory/claims.json` commands pass after clean `npm ci`.
-- `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`, and `npm audit --omit=dev` pass. The suite has 6 unit and 28 Chromium tests.
-- Precise live traces complete all five free drills with correct target coverage and feedback. Empty, far-off, undo/reset, keyboard, pointer-device, invalid-license, and network-retry paths behave correctly.
-- Desktop and 390 px mobile pass first-read, layout, 44 px target, keyboard/focus, 200% text, reduced-motion, and axe serious/critical checks.
-- The demo remains isolated and sticky on mobile. Pen pressure, strokes, and scores produce no storage or outbound data.
-- Live offline reload and service-worker update activation pass.
-- Security headers, CORS, cache policy, links, and API throttling pass. The verify endpoint allows 30 rapid requests; request 31 returns 429 with `Retry-After`.
-- Every deployed public file matches the candidate build by SHA-256.
-- Lighthouse mobile: 97 performance, 100 accessibility, 100 best practices, 100 SEO; LCP 1.4 s, TBT 190 ms, CLS 0, 74 KiB transferred.
+- Cold live first-read at 390×844 and 1440×900: headline, audience, action, and facts are all visible; the sample action reaches `/demo` in one click.
+- Live demo isolation: no off-origin request, storage, cookie, or IndexedDB data during demo draw/reset/leave; mobile banner remains sticky; Start for real starts empty.
+- Live service-worker offline reload: a controlled demo reload returns 200 offline with the demo banner.
+- Direct routes, Back/focus behavior, metadata, designed 404, sitemap/robots, internal links, and visual identity pass the review checks.
+- From an isolated clean clone, `npm ci` and all nine exact claim commands pass.
+
+## Required follow-up
+
+1. Render the claimed demo scores `82/100` and `76/100`, restore them on Reset demo, and make `@claim:demo-sandbox` assert them. This is blocking.
+2. Add and test the README’s specific license-storage promise, or remove/narrow it.
+3. Apply the three README rewrites in review F-1-2, F-1-3, and F-1-5.
 
 ## Reproduce
 
 ```sh
+review_clone=$(mktemp -d)
+git clone /work/repo "$review_clone"
+cd "$review_clone"
 npm ci
-npm run typecheck
-npm run lint
-npm test
-npm run build
-npm audit --omit=dev
-node .factory/qa-evidence/verification-4/live-independent-qa.mjs
-node .factory/qa-evidence/sw-update.mjs
+npm test -- --grep @claim:demo-sandbox
+npm test -- --grep @claim:geometric-feedback
+npm test -- --grep @claim:five-core-free
+npm test -- --grep @claim:local-practice
+npm test -- --grep @claim:offline-reload
+npm test -- --grep @claim:input-methods
+npm test -- --grep @claim:license-restore
+npm test -- --grep @claim:five-minute-session
+npm test -- --grep @claim:account-free
 ```
 
-Run each command in `.factory/claims.json` separately for the claims gate. The demo entry points are `/demo` and `/?demo=1`.
-
-## Known external state
-
-The unadvertised Sociobot checkout endpoint for this slug returns 404. The shipped product makes no purchase or price promise; it accurately presents the five free drills as the complete release and supports existing Space Pack license restoration. Registering a future paid sale is factory billing work, not a repository release blocker.
-
-No product source code was modified during verification.
+Open the production `/demo` route after the first command. It currently shows `2 sample drills complete`, but not the promised two sample scores.
