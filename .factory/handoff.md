@@ -50,3 +50,11 @@ The static deployment configuration is `public/staticwebapp.config.json`; `dist/
 ## Follow-up
 
 There is no public checkout until the factory registers and enables a billing product. This is an intentional honest scope reduction from the brief’s optional freemium opportunity, not a disabled purchase control. If the factory later registers the product, restore the offer only with a staging and live checkout regression that confirms the advertised URL redirects successfully.
+
+## Deployment evidence
+
+- Repair commit `b59ed08` was pushed to `origin/main` and deployed with `/opt/fleet/lib/deploy-static.sh pen-display-drills /work/repo/dist`.
+- Azure Static Web Apps deployment `ad958e40-41dd-4ea3-923b-5f938862b55d` succeeded. The custom domain is Ready and `https://pen-display-drills.sociobot.in` returned HTTP 200 over HTTPS.
+- Live `/`, `/demo`, `/practice`, `/privacy`, and `/terms` return 200; live `/missing-page` returns the designed SPA page with HTTP 404.
+- The live hashed JavaScript asset `assets/index-ClQ_syS8.js` has `Cache-Control: public, max-age=31536000, immutable` and SHA-256 `562433094f7b47b0cf65c73bdbfa935d83102e333ce8a234effd568109466242`, identical to `dist/`.
+- Live `verify-url.sh` on `/?demo=1` passed with title `Demo — Pen Display Drills`, `lang=en`, one h1, a main landmark, no missing alt text or unlabeled buttons, and no console errors. Evidence is `.factory/qa-evidence/live-repair-verify-url/`.
