@@ -1,0 +1,21 @@
+Clean clone: /tmp/pen-display-polish-2-final-aJW6xq
+Revision: c176cee65ae04e0dbfa998d34152aff5573a1ff4
+Date: 2026-08-28 UTC
+
+PASS npm ci
+PASS npm test -- --grep @claim:demo-sandbox
+PASS npm test -- --grep @claim:geometric-feedback
+PASS npm test -- --grep @claim:five-core-free
+PASS npm test -- --grep @claim:local-practice
+PASS npm test -- --grep @claim:offline-reload
+PASS npm test -- --grep @claim:input-methods
+PASS npm test -- --grep @claim:license-restore
+PASS npm test -- --grep @claim:license-storage
+PASS npm test -- --grep @claim:license-verification-privacy
+PASS npm test -- --grep @claim:five-minute-session
+PASS npm test -- --grep @claim:account-free
+PASS npm run typecheck
+PASS npm run lint
+PASS npm test — 6 Vitest tests and 31 Chromium tests
+PASS npm run build — dist/index.html present; JS 9.82 kB gzip; CSS 5.54 kB gzip
+PASS npm audit --omit=dev — 0 vulnerabilities

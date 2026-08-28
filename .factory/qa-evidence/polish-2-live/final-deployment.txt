@@ -1,0 +1,5 @@
+Deployment: d43523b4-f81b-4432-87d7-f3e78c7b0840
+Source revision: c176cee65ae04e0dbfa998d34152aff5573a1ff4
+Target: Azure Static Web Apps production
+URL: https://pen-display-drills.sociobot.in
+Result: upload succeeded; custom domain Ready; managed TLS returned HTTP 200

@@ -6,11 +6,11 @@ Reviewed source: `f980ec1990609c74f52e98dcc594d2fb4c734727`
 
 Review report: `fcdf2f85a191f7b5f557f5bd8526bd059263d7be`
 
-Functional repair: `e6406d4`
+Functional repairs: `e6406d4`, `c176cee`
 
 Production: <https://pen-display-drills.sociobot.in>
 
-Deployment: Azure Static Web Apps `305c2ea0-d15e-4932-995e-c0f5718c61e6`
+Deployment: Azure Static Web Apps `d43523b4-f81b-4432-87d7-f3e78c7b0840`
 
 Every finding in `review-1.md` and `review-2.md` was rechecked. No finding of any severity remains.
 
@@ -26,14 +26,18 @@ Every finding in `review-1.md` and `review-2.md` was rechecked. No finding of an
 
 ## Complete verification
 
-- Clean clone: `/tmp/pen-display-polish-2-wyevlC`; `npm ci`, all 11 exact claim commands, `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`, and `npm audit --omit=dev` passed. Evidence: [`clean-clone.log`](qa-evidence/polish-2-local/clean-clone.log).
-- Full suite: 6 Vitest tests and 30 Chromium tests passed. Axe found no serious or critical issue on `/`, `/demo`, `/practice`, `/privacy`, `/terms`, or the 404.
+- Clean clone: `/tmp/pen-display-polish-2-final-aJW6xq` at `c176cee`; `npm ci`, all 11 exact claim commands, `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`, and `npm audit --omit=dev` passed. Evidence: [`final-clean-clone.txt`](qa-evidence/polish-2-local/final-clean-clone.txt).
+- Full suite: 6 Vitest tests and 31 Chromium tests passed. Axe found no serious or critical issue on `/`, `/demo`, `/practice`, `/privacy`, `/terms`, or the 404.
 - Demo: one-click entry and `/?demo=1` canonicalization passed. Reset restored Box and both scores. Start for real opened an empty session. No demo request left origin, no practice/demo storage key appeared, and an existing real-license sentinel remained unchanged.
 - Offline: a fresh service-worker-controlled `/?demo=1` visit reloaded with HTTP 200 while offline and kept its banner and sample scores.
-- Routing: the five real routes returned 200; `/missing-page` returned the designed 404. Titles and canonical URLs matched each route. Browser Back restored home and focused its `h1`.
+- Routing: the five real routes returned 200. `/missing-page`, `/final-cold-404-check`, and `/anything/not-real` returned the designed page with HTTP 404. Titles and canonical URLs matched each route. Browser Back restored home and focused its `h1`.
 - Accessibility: the factory URL verifier passed; Playwright Axe found zero serious/critical issues on all routes; mobile controls, focus, landmarks, one-`h1`, labels, and 390 px width tests passed.
 - Privacy: demo drawing made no off-origin request or stored state. License restore made one documented Sociobot request containing only the pasted token and no request body.
 - Build: initial JavaScript is 9.82 kB gzip and CSS is 5.54 kB gzip. `npm audit --omit=dev` found zero vulnerabilities.
 - Performance: live Lighthouse scored Performance 100, Accessibility 100, Best Practices 100, SEO 100; LCP 1.5 s, TBT 0 ms, CLS 0. Evidence: [`lighthouse-summary.json`](qa-evidence/polish-2-live/lighthouse-summary.json).
-- Deployment: all 15 public files matched `dist/` byte-for-byte. Evidence: [`deployment-hashes.tsv`](qa-evidence/polish-2-live/deployment-hashes.tsv).
-- Cold production audit: [`cold-check.json`](qa-evidence/polish-2-live/cold-check.json), [`verify.json`](qa-evidence/polish-2-live/verify-url/verify.json), and [`live-check.mjs`](qa-evidence/polish-2-live/live-check.mjs).
+- Deployment: all 15 public app files matched `dist/` byte-for-byte; the final route configuration was deployed as `d43523b4-f81b-4432-87d7-f3e78c7b0840`. Evidence: [`deployment-hashes.tsv`](qa-evidence/polish-2-live/deployment-hashes.tsv) and [`final-deployment.txt`](qa-evidence/polish-2-live/final-deployment.txt).
+- Cold production audit: [`final-cold-check.json`](qa-evidence/polish-2-live/final-cold-check.json), [`cold-check.json`](qa-evidence/polish-2-live/cold-check.json), [`verify.json`](qa-evidence/polish-2-live/verify-url/verify.json), and [`live-check.mjs`](qa-evidence/polish-2-live/live-check.mjs).
+
+## Additional acceptance closure
+
+The final cold audit found that an arbitrary unknown path initially rendered the designed 404 with HTTP 200, even though the reviewer’s `/missing-page` probe returned 404. Commit `c176cee` replaced the catch-all navigation fallback with explicit rewrites for `/demo`, `/practice`, `/privacy`, and `/terms`. Every unknown path now reaches the 404 response override. The regression test `static deployment rewrites only real app routes and returns unknown paths as 404` and the three production probes above prevent this from being mistaken for a cosmetic 404 again.

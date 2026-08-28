@@ -1,0 +1,21 @@
+{
+  "deployment": "d43523b4-f81b-4432-87d7-f3e78c7b0840",
+  "routes": {
+    "/": 200,
+    "/demo": 200,
+    "/practice": 200,
+    "/privacy": 200,
+    "/terms": 200,
+    "/missing-page": 404,
+    "/final-cold-404-check": 404,
+    "/anything/not-real": 404
+  },
+  "unknownRouteUI": {
+    "title": "Page not found — Pen Display Drills",
+    "recoveryLink": "Return to the practice desk"
+  },
+  "demo": "scores, reset, and empty storage passed",
+  "privacy": "revised Sociobot token sentence passed",
+  "offlineDemoReloadStatus": 200,
+  "normalRouteConsoleErrors": []
+}
