@@ -60,7 +60,7 @@ function homePage(): string {
       </ul>
     </div>
     <figure class="hero-figure">
-      <img src="/assets/instrument-console.webp" width="960" height="640" alt="A mid-century drafting console measuring a stylus line on graph paper." fetchpriority="high" decoding="async">
+      <img src="/assets/instrument-console-ef16bd9f2ce7.webp" width="960" height="640" alt="A mid-century drafting console measuring a stylus line on graph paper." fetchpriority="high" decoding="async">
       <figcaption><span>Fig. 01</span> A focused desk for hand control.</figcaption>
     </figure>
   </section>

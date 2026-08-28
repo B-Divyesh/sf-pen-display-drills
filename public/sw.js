@@ -1,6 +1,6 @@
 const CACHE = 'pen-drills-__BUILD_VERSION__';
 const BUILD_ASSETS = /* inject:assets */ [];
-const SHELL = ['/', '/practice', '/demo', '/privacy', '/terms', '/offline.html', '/offline.css', '/manifest.webmanifest', '/favicon.svg', '/assets/instrument-console.webp', '/assets/social-card.webp', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png', ...BUILD_ASSETS];
+const SHELL = ['/', '/practice', '/demo', '/privacy', '/terms', '/offline.html', '/offline.css', '/manifest.webmanifest', '/favicon.svg', '/assets/instrument-console-ef16bd9f2ce7.webp', '/assets/social-card-51b57592432d.webp', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png', ...BUILD_ASSETS];
 const fromCache = (request) => caches.match(request, { ignoreVary: true });
 self.addEventListener('install', (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL))));
 self.addEventListener('activate', (event) => event.waitUntil(Promise.all([

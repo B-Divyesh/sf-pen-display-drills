@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 
 test('@claim:demo-sandbox opens a seeded demo and resets it', async ({ page }) => {
   await page.addInitScript(() => {
@@ -178,6 +180,68 @@ test('the license restore control works by keyboard and fits a 390px screen', as
   }
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(results.violations.filter((item) => ['serious', 'critical'].includes(item.impact ?? ''))).toEqual([]);
+});
+
+test('license recovery label and error text retain 4.5:1 contrast on the drafting desk', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.route('https://api.sociobot.in/api/v1/products/pen-display-drills/verify?license=invalid-license', (route) => route.fulfill({ json: { valid: false, reason: 'invalid', expires_at: null } }));
+  await page.goto('/practice');
+  await page.getByText('Have a license? Paste it', { exact: true }).click();
+  await page.getByLabel('License token').fill('invalid-license');
+  await page.getByRole('button', { name: 'Restore license' }).click();
+  const message = page.locator('[data-license-message]');
+  await expect(message).toContainText('This license is not active');
+  const contrast = await page.evaluate(() => {
+    const luminance = (color: string) => {
+      const values = color.match(/\d+(?:\.\d+)?/g)?.slice(0, 3).map(Number) ?? [];
+      const channels = values.map((value) => {
+        const normalized = value / 255;
+        return normalized <= 0.03928 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+      });
+      return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+    };
+    const ratio = (foreground: string, background: string) => {
+      const [light, dark] = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+      return (light + 0.05) / (dark + 0.05);
+    };
+    const label = getComputedStyle(document.querySelector('label[for="license-token"]')!).color;
+    const status = getComputedStyle(document.querySelector('[data-license-message]')!).color;
+    return { label: ratio(label, 'rgb(223, 211, 182)'), status: ratio(status, 'rgb(223, 211, 182)') };
+  });
+  expect(contrast.label).toBeGreaterThanOrEqual(4.5);
+  expect(contrast.status).toBeGreaterThanOrEqual(4.5);
+});
+
+test('the mobile demo status and reset controls stay visible while drawing', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/demo');
+  await page.locator('canvas').scrollIntoViewIfNeeded();
+  const banner = page.locator('.demo-bar');
+  await expect(banner).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Reset demo' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start for real' })).toBeVisible();
+  const box = await banner.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box?.y ?? -1).toBeGreaterThanOrEqual(0);
+  expect((box?.y ?? 0) + (box?.height ?? Infinity)).toBeLessThanOrEqual(844);
+  await expect(banner).toHaveCSS('position', 'sticky');
+});
+
+test('immutable artwork URLs are content-addressed', async () => {
+  const config = await readFile(new URL('../public/staticwebapp.config.json', import.meta.url), 'utf8');
+  const references = await Promise.all([
+    readFile(new URL('../src/main.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../index.html', import.meta.url), 'utf8'),
+    readFile(new URL('../public/sw.js', import.meta.url), 'utf8'),
+  ]);
+  expect(config).toContain('"route": "/assets/*"');
+  expect(config).toContain('max-age=31536000, immutable');
+  const assets = [...new Map([...references.join('\n').matchAll(/\/assets\/([a-z-]+)-([a-f0-9]{12})\.webp/g)].map((match) => [`${match[1]}-${match[2]}`, match])).values()];
+  expect(assets).toHaveLength(2);
+  for (const [, name, hash] of assets) {
+    const bytes = await readFile(new URL(`../public/assets/${name}-${hash}.webp`, import.meta.url));
+    expect(createHash('sha256').update(bytes).digest('hex').slice(0, 12)).toBe(hash);
+  }
 });
 
 test('requires distinct target coverage before completing a box drill', async ({ page }) => {

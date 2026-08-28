@@ -109,12 +109,12 @@ main { display: block; overflow: clip; }
 .fine-print { margin-top: 24px; font-size: .83rem; }
 .restore { margin-top: 24px; border-top: 1px solid #5a7376; padding-top: 18px; }
 .restore summary { cursor: pointer; min-height: 44px; font-weight: 700; }
-.restore label { display: block; color: #d1dcda; margin-bottom: 8px; }
+.restore label { display: block; color: var(--ink); margin-bottom: 8px; }
 .restore form > div { display: flex; gap: 8px; }
 .restore input { min-width: 0; min-height: 46px; flex: 1; padding: 10px 12px; color: var(--ink); background: var(--paper); border: 2px solid #83908c; border-radius: 2px; }
 .restore button { min-height: 46px; padding: 10px 14px; color: var(--amber-ink); background: var(--amber); border: 0; font-weight: 750; }
-.form-message { min-height: 1.5rem; margin-top: 8px; color: var(--cream) !important; }
-.license-ok { color: #9de3d0 !important; font-weight: 800; }
+.form-message { min-height: 1.5rem; margin-top: 8px; color: var(--ink) !important; font-weight: 650; }
+.license-ok { color: #1d5a4e !important; font-weight: 800; }
 
 .demo-bar { position: sticky; z-index: 3; top: 0; min-height: 46px; padding: 6px max(20px, calc((100vw - 1300px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 20px; background: var(--amber); color: var(--amber-ink); font-size: .87rem; }
 .demo-bar > span { display: flex; align-items: center; gap: 16px; }
@@ -233,7 +233,7 @@ canvas:focus-visible { outline-offset: -5px; }
   .steps li { grid-template-columns: 64px 1fr; }
   .paid { gap: 48px; }
   .restore form > div { flex-direction: column; }
-  .demo-bar { position: relative; align-items: flex-start; flex-direction: column; gap: 0; padding: 9px 16px; }
+  .demo-bar { align-items: flex-start; flex-direction: column; gap: 0; padding: 9px 16px; }
   .practice-head { padding: 42px 20px 32px; }
   .practice-head h1 { font-size: 3.1rem; }
   .desk { padding: 18px 12px 56px; }
