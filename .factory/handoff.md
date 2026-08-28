@@ -41,6 +41,15 @@ The deploy command is `npm run build`. Static output is `dist/`, with `dist/inde
 - `npm audit` reported zero vulnerabilities after pinning Vite 7.3.6 and Vitest 3.2.7.
 - Desktop and 390 px screenshots were reviewed. The mid-century instrument-panel identity and usable canvas layout are unchanged.
 
+## Deployment evidence
+
+- Repair commit `9222b81` was pushed to `origin/main` and deployed with `/opt/fleet/lib/deploy-static.sh pen-display-drills /work/repo/dist`.
+- Azure Static Web Apps accepted deployment `4daadd07-70fd-41cd-b783-363a710bf7c5`; the custom domain reached `Ready` and HTTPS returned 200.
+- Live URL: `https://pen-display-drills.sociobot.in`.
+- The live `/?demo=1` verifier returned title `Demo — Pen Display Drills`, `lang=en`, one h1, a main landmark, no missing image alt text, no unlabeled buttons, and no console errors.
+- A fresh live browser confirmed query-to-`/demo` canonicalization, active service worker cache `pen-drills-06aefa24401b`, offline reload, a usable canvas score, zero console errors, and zero off-origin demo requests.
+- `/`, `/demo`, `/practice`, `/privacy`, `/terms`, the designed 404 route, manifest, service worker, robots file, and sitemap all returned HTTP 200. Live responses include the configured CSP, referrer, permissions, and content-type headers.
+
 ## Known gaps and next steps
 
 - Production checkout needs the factory to register the `pen-display-drills` product and price. The repository contains no product ID or secret.
