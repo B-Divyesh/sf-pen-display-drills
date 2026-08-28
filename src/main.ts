@@ -1,5 +1,5 @@
 import './styles.css';
-import { drills, scoreStroke, targetsFor, type Point } from './drills';
+import { drills, scoreStroke, targetCoverage, targetsFor, type Point } from './drills';
 
 const APP_NAME = 'Pen Display Drills';
 const LICENSE_KEY = 'sb_license:pen-display-drills';
@@ -10,6 +10,7 @@ if (!app) throw new Error('The app mount point is missing.');
 
 type LicenseVerdict = { valid: boolean; checkedAt: number };
 type Stroke = { points: Point[]; score: number };
+let returnedLicenseToken: string | null = null;
 
 const routeData: Record<string, { title: string; description: string }> = {
   '/': { title: 'Pen Display Drills — five-minute drawing practice', description: 'Practice straight lines, ellipses, boxes, and perspective with immediate geometric feedback on any drawing tablet.' },
@@ -86,11 +87,9 @@ function paidSection(): string {
   const licensed = hasValidCachedLicense();
   return `<section class="paid ruler-edge" aria-labelledby="paid-heading">
     <div class="paid-dial" aria-hidden="true"><span></span></div>
-    <div><p class="eyebrow">Optional expansion</p><h2 id="paid-heading">Add the space drafting pack</h2><p>Get orbital rings, radar spokes, and gantry depth drills. The five core drills remain free.</p>
-    <p class="price"><strong>$6</strong> once</p>
-    ${licensed ? `<p class="license-ok"><span aria-hidden="true">●</span> Space drafting pack active</p>` : `<a class="button secondary" href="${BILLING_URL}/checkout">Buy the themed pack — $6 <span class="sr-only">at external checkout</span></a>`}
-    <details class="restore"><summary>Have a license?</summary><form data-license-form><label for="license-token">Paste your license token</label><div><input id="license-token" name="license" autocomplete="off" required><button type="submit">Verify license</button></div><p class="form-message" data-license-message aria-live="polite"></p></form></details>
-    <p class="fine-print">This is a one-time purchase. Sociobot and Dodo handle checkout and refunds. Read the <a href="/terms" data-link>purchase terms</a>.</p></div>
+    <div><p class="eyebrow">Current release</p><h2 id="paid-heading">Five focused drills, ready to use</h2><p>The free drill desk is the complete current release. It includes line control, ellipses, boxes, and one- and two-point perspective.</p>
+    ${licensed ? `<p class="license-ok"><span aria-hidden="true">●</span> Space drafting pack active</p>` : ''}
+    <p class="fine-print">Read the <a href="/terms" data-link>practice terms</a>.</p></div>
   </section>`;
 }
 
@@ -104,7 +103,7 @@ function practicePage(isDemo: boolean): string {
   </section>
   <section class="desk" aria-label="Drawing drill desk">
     <div class="selector"><div><span class="selector-label">Core drills</span>${coreButtons}</div><div><span class="selector-label">Space pack</span>${packButtons}</div></div>
-    ${!licensed ? `<p class="pack-note">The space pack adds three themed drills for $6 once. <a href="/#paid-heading" data-link>View the pack</a>.</p>` : ''}
+    ${!licensed ? `<p class="pack-note">The five core drills are available in this release.</p>` : ''}
     <div class="desk-panel">
       <div class="drill-readout"><div><span class="readout-number" data-drill-number>${isDemo ? '03' : '01'}</span><div><h2 data-drill-name>${isDemo ? 'Box' : 'Straight line'}</h2><p data-drill-instruction></p></div></div><button type="button" class="quiet-button" data-help aria-expanded="false">Keyboard controls</button></div>
       <div class="keyboard-help" data-keyboard-help hidden><p>Focus the drawing area. Use arrow keys to move the crosshair. Press Space to lower or lift the pen. Press R to reset and N for the next drill.</p></div>
@@ -121,8 +120,8 @@ function practicePage(isDemo: boolean): string {
 }
 
 function legalPage(kind: 'privacy' | 'terms'): string {
-  if (kind === 'privacy') return shell(`<article class="legal"><p class="eyebrow">Policy · effective 28 August 2026</p><h1 tabindex="-1">Your strokes stay on your device</h1><p>Pen Display Drills does not send or save drawings, pen pressure, or practice scores. Practice exists only in the current tab.</p><h2>What this site stores</h2><p>The service worker caches app files for offline use. If you buy or restore the space pack, this browser stores your license token and its last verification result.</p><h2>What leaves your device</h2><p>No practice data leaves your device. License verification sends only your license token to Sociobot when needed. Checkout is handled by Sociobot and Dodo under their own policies.</p><h2>Remove stored data</h2><p>Clear this site's browser data to remove cached app files and your license. Closing the tab removes every practice stroke and score.</p><h2>Contact</h2><p>Email <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with privacy questions.</p></article>`);
-  return shell(`<article class="legal"><p class="eyebrow">Terms · effective 28 August 2026</p><h1 tabindex="-1">Use the drills for personal practice</h1><p>You may use the five core drills without an account. The software is provided as-is and does not replace art instruction or medical advice.</p><h2>Space drafting pack</h2><p>The space drafting pack costs $6 as a one-time purchase. It includes orbital rings, radar spokes, and gantry depth drills for one user.</p><p>Sociobot and Dodo are the merchant of record. They handle payment and refunds. A refunded, expired, or revoked license stops opening paid drills.</p><h2>Fair use</h2><p>Do not interfere with the service, bypass license checks, or resell a license token. You keep ownership of anything you draw.</p><h2>Changes and contact</h2><p>Material changes will appear on this page with a new effective date. Email <a href="mailto:support@sociobot.in">support@sociobot.in</a> for help.</p></article>`);
+  if (kind === 'privacy') return shell(`<article class="legal"><p class="eyebrow">Policy · effective 28 August 2026</p><h1 tabindex="-1">Your strokes stay on your device</h1><p>Pen Display Drills does not send or save drawings, pen pressure, or practice scores. Practice exists only in the current tab.</p><h2>What this site stores</h2><p>The service worker caches app files for offline use. If you supply an existing license, this browser stores its token and last verification result.</p><h2>What leaves your device</h2><p>No practice data leaves your device. License verification sends only a supplied license token to Sociobot when needed.</p><h2>Remove stored data</h2><p>Clear this site's browser data to remove cached app files and your license. Closing the tab removes every practice stroke and score.</p><h2>Contact</h2><p>Email <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with privacy questions.</p></article>`);
+  return shell(`<article class="legal"><p class="eyebrow">Terms · effective 28 August 2026</p><h1 tabindex="-1">Use the drills for personal practice</h1><p>You may use the five core drills without an account. The software is provided as-is and does not replace art instruction or medical advice.</p><h2>Practice content</h2><p>The current release includes five free drills.</p><h2>Fair use</h2><p>Do not interfere with the service or resell a license token. You keep ownership of anything you draw.</p><h2>Changes and contact</h2><p>Material changes will appear on this page with a new effective date. Email <a href="mailto:support@sociobot.in">support@sociobot.in</a> for help.</p></article>`);
 }
 
 function notFoundPage(): string {
@@ -225,16 +224,21 @@ function captureReturnedLicense(): void {
   const token = params.get('license');
   if (!token) return;
   localStorage.setItem(LICENSE_KEY, token);
+  returnedLicenseToken = token;
   params.delete('license');
   const clean = `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`;
   history.replaceState({}, '', clean);
-  if (currentPath() !== '/demo') void verifyLicense(token).then(render).catch(() => undefined);
+  if (currentPath() !== '/demo') void verifyLicense(token).then((valid) => {
+    if (!valid) localStorage.removeItem(LICENSE_KEY);
+    render();
+  }).catch(() => undefined).finally(() => { returnedLicenseToken = null; });
 }
 
 function refreshStoredLicense(): void {
   if (currentPath() === '/demo') return;
   const token = localStorage.getItem(LICENSE_KEY);
   if (!token) return;
+  if (token === returnedLicenseToken) return;
   try {
     const verdict = JSON.parse(localStorage.getItem(VERDICT_KEY) ?? 'null') as LicenseVerdict | null;
     if (verdict && Date.now() - verdict.checkedAt < 86_400_000) return;
@@ -356,11 +360,12 @@ function initPractice(isDemo: boolean): void {
   }
 
   function updateControls(): void {
-    const needed = currentDrill().minStrokes;
-    const count = strokes.length;
-    progress.textContent = count === 0 ? 'No target lines covered yet.' : `${Math.min(count, needed)} of ${needed} target ${needed === 1 ? 'stroke' : 'strokes'} drawn.`;
-    undoButton.disabled = count === 0;
-    finishButton.disabled = count === 0;
+    const targets = allTargets();
+    const covered = targetCoverage(strokes.map((stroke) => stroke.points), targets);
+    const needed = currentDrill().id === 'ellipse' ? Math.ceil(targets.length * 0.7) : targets.length;
+    progress.textContent = covered.length === 0 ? 'No target lines covered yet.' : `${Math.min(covered.length, needed)} of ${needed} target ${needed === 1 ? 'line' : 'lines'} covered.`;
+    undoButton.disabled = strokes.length === 0;
+    finishButton.disabled = covered.length < needed;
   }
 
   function resetDrill(): void {
@@ -405,7 +410,11 @@ function initPractice(isDemo: boolean): void {
       return;
     }
     if (event.key.toLowerCase() === 'r') { resetDrill(); return; }
-    if (event.key.toLowerCase() === 'n') { selectDrill(drills[(drillIndex + 1) % drills.length].id); return; }
+    if (event.key.toLowerCase() === 'n') {
+      const next = drills.findIndex((drill, index) => index > drillIndex && (!drill.paid || licenseActive));
+      selectDrill(drills[next >= 0 ? next : drills.findIndex((drill) => !drill.paid || licenseActive)].id);
+      return;
+    }
     if (event.key === 'ArrowLeft') keyboardPoint.x = Math.max(4, keyboardPoint.x - step);
     if (event.key === 'ArrowRight') keyboardPoint.x = Math.min(canvas.clientWidth - 4, keyboardPoint.x + step);
     if (event.key === 'ArrowUp') keyboardPoint.y = Math.max(4, keyboardPoint.y - step);

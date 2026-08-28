@@ -39,13 +39,20 @@
     "claim": "The drawing area accepts pen, mouse, touch, and keyboard arrows.",
     "where": "landing steps and drawing area instructions",
     "test": "npm test -- --grep @claim:input-methods",
-    "sandbox": "fresh browser context at /practice; score a keyboard stroke and a browser Pointer Event stroke"
+    "sandbox": "fresh browser context at /practice; score keyboard input and synthetic mouse, pen, and touch Pointer Events"
   },
   {
-    "id": "paid-pack",
-    "claim": "A $6 one-time license adds orbital rings, radar spokes, and gantry depth drills.",
-    "where": "landing paid tier and terms",
-    "test": "npm test -- --grep @claim:paid-pack",
-    "sandbox": "fresh browser context with a mocked valid Sociobot verification response; assert three enabled pack drills"
+    "id": "five-minute-session",
+    "claim": "Each practice desk starts with a five-minute timer.",
+    "where": "landing headline and practice header",
+    "test": "npm test -- --grep @claim:five-minute-session",
+    "sandbox": "fresh browser context at /practice; assert the displayed timer starts at 05:00"
+  },
+  {
+    "id": "account-free",
+    "claim": "The five free drills do not require an account.",
+    "where": "terms page",
+    "test": "npm test -- --grep @claim:account-free",
+    "sandbox": "fresh browser context at /practice; assert the five core drills load without sign-in UI or stored account data"
   }
 ]

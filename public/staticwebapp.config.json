@@ -1,5 +1,11 @@
 {
-  "navigationFallback": {"rewrite": "/index.html", "exclude": ["/assets/*", "/icons/*", "/*.{css,js,json,webp,png,svg,xml,txt}"]},
+  "navigationFallback": {"rewrite": "/index.html", "exclude": ["/assets/*", "/icons/*", "/missing-page", "/*.{css,js,json,webp,png,svg,xml,txt}"]},
+  "routes": [
+    {"route": "/assets/*", "headers": {"Cache-Control": "public, max-age=31536000, immutable"}}
+  ],
+  "responseOverrides": {
+    "404": {"rewrite": "/index.html", "statusCode": 404}
+  },
   "globalHeaders": {
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "strict-origin-when-cross-origin",

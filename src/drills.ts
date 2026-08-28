@@ -14,7 +14,7 @@ export type Drill = {
 export const drills: Drill[] = [
   { id: 'line', name: 'Straight line', short: 'Line', instruction: 'Draw from the left marker to the right marker in one motion.', cue: 'Look at the end marker. Move from your shoulder.', minStrokes: 1 },
   { id: 'ellipse', name: 'Ellipse', short: 'Ellipse', instruction: 'Trace the ellipse once. Keep your speed even through each turn.', cue: 'Ghost the shape first. Draw through the curve.', minStrokes: 1 },
-  { id: 'box', name: 'Box', short: 'Box', instruction: 'Trace each box edge. Start with the long outside lines.', cue: 'Commit to each corner. Do not patch a line.', minStrokes: 7 },
+  { id: 'box', name: 'Box', short: 'Box', instruction: 'Trace each box edge. Start with the long outside lines.', cue: 'Commit to each corner. Do not patch a line.', minStrokes: 8 },
   { id: 'one-point', name: 'One-point perspective', short: '1-point', instruction: 'Draw the box edges toward the single vanishing point.', cue: 'Aim past the vanishing point, then lift.', minStrokes: 8 },
   { id: 'two-point', name: 'Two-point perspective', short: '2-point', instruction: 'Build the box toward both vanishing points.', cue: 'Keep verticals upright. Aim each side at its point.', minStrokes: 9 },
   { id: 'orbit', name: 'Orbital rings', short: 'Orbit', instruction: 'Trace three tilted rings around the shared center.', cue: 'Keep the center fixed while each ring turns.', minStrokes: 3, paid: true },
@@ -88,4 +88,26 @@ export function scoreStroke(points: Point[], targets: Segment[]): { deviation: n
   const deviation = sampled.reduce((sum, item) => sum + Math.min(...targets.map((target) => distanceToSegment(item, target))), 0) / sampled.length;
   const score = Math.max(0, Math.min(100, Math.round(100 - deviation * 4)));
   return { deviation: Math.round(deviation * 10) / 10, score };
+}
+
+/** Returns the distinct guide segments a stroke actually traverses. */
+export function coveredTargetIndexes(points: Point[], targets: Segment[], tolerance = 10, minimumSpan = 0.55): number[] {
+  if (points.length < 2) return [];
+  return targets.flatMap(([a, b], index) => {
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const lengthSquared = dx * dx + dy * dy;
+    if (lengthSquared === 0) return [];
+    const closeProjections = points.flatMap((item) => {
+      const projection = ((item.x - a.x) * dx + (item.y - a.y) * dy) / lengthSquared;
+      const clamped = Math.max(0, Math.min(1, projection));
+      const closest = { x: a.x + clamped * dx, y: a.y + clamped * dy };
+      return Math.hypot(item.x - closest.x, item.y - closest.y) <= tolerance ? [clamped] : [];
+    });
+    return closeProjections.length >= 2 && Math.max(...closeProjections) - Math.min(...closeProjections) >= minimumSpan ? [index] : [];
+  });
+}
+
+export function targetCoverage(strokes: Point[][], targets: Segment[]): number[] {
+  return [...new Set(strokes.flatMap((stroke) => coveredTargetIndexes(stroke, targets)))].sort((a, b) => a - b);
 }

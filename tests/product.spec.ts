@@ -46,7 +46,7 @@ test('@claim:five-core-free keeps all five core drills available', async ({ page
   for (const button of await page.locator('.pack-tab').all()) await expect(button).toBeDisabled();
 });
 
-test('@claim:local-practice sends no demo data off origin', async ({ page }) => {
+test('@claim:local-practice sends no demo data off origin or stores it', async ({ page }) => {
   const outsideRequests: string[] = [];
   page.on('request', (request) => {
     if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') outsideRequests.push(request.url());
@@ -60,9 +60,15 @@ test('@claim:local-practice sends no demo data off origin', async ({ page }) => 
   await page.mouse.down();
   await page.mouse.move(box.x + 150, box.y + 100, { steps: 8 });
   await page.mouse.up();
-  await page.getByRole('button', { name: 'Finish drill' }).click();
   expect(outsideRequests).toEqual([]);
-  expect(await page.evaluate(() => Object.keys(localStorage))).toEqual([]);
+  expect(await page.evaluate(async () => ({
+    local: Object.keys(localStorage),
+    session: Object.keys(sessionStorage),
+    cookies: document.cookie,
+    databases: 'databases' in indexedDB ? await indexedDB.databases() : [],
+  }))).toEqual({ local: [], session: [], cookies: '', databases: [] });
+  await page.reload();
+  await expect(page.locator('[data-score]')).toHaveText('—');
 });
 
 test('@claim:offline-reload reloads the demo without a network', async ({ page, context }) => {
@@ -93,11 +99,10 @@ test('@claim:offline-reload reloads the demo without a network', async ({ page, 
   await page.keyboard.press('Space');
   await expect(page.locator('[data-score]')).toHaveText(/\d+\/100/);
   await expect(page.locator('[data-feedback]')).not.toHaveText('Make one stroke to get a reading.');
-  await expect(page.getByRole('button', { name: 'Finish drill' })).toBeEnabled();
   await context.setOffline(false);
 });
 
-test('@claim:input-methods accepts pointer and keyboard drawing', async ({ page }) => {
+test('@claim:input-methods accepts pen, mouse, touch, and keyboard drawing', async ({ page }) => {
   await page.goto('/practice');
   const canvas = page.locator('canvas');
   await canvas.focus();
@@ -105,24 +110,104 @@ test('@claim:input-methods accepts pointer and keyboard drawing', async ({ page 
   for (let index = 0; index < 12; index += 1) await page.keyboard.press('Shift+ArrowRight');
   await page.keyboard.press('Space');
   await expect(page.locator('[data-score]')).toHaveText(/\d+\/100/);
-  await page.getByRole('button', { name: 'Reset drill' }).click();
   await canvas.scrollIntoViewIfNeeded();
   const box = await canvas.boundingBox();
   if (!box) throw new Error('Drawing area did not render.');
-  await page.mouse.move(box.x + 40, box.y + 80);
-  await page.mouse.down();
-  await page.mouse.move(box.x + 180, box.y + 120, { steps: 8 });
-  await page.mouse.up();
-  await expect(page.locator('[data-score]')).toHaveText(/\d+\/100/);
+  for (const pointerType of ['mouse', 'pen', 'touch']) {
+    await page.getByRole('button', { name: 'Reset drill' }).click();
+    await canvas.evaluate((node, data) => {
+      const target = node as HTMLCanvasElement;
+      const fire = (type: string, x: number, y: number) => target.dispatchEvent(new PointerEvent(type, { bubbles: true, pointerId: 31, pointerType: data.pointerType, clientX: x, clientY: y }));
+      fire('pointerdown', data.x + 40, data.y + 80);
+      fire('pointermove', data.x + 180, data.y + 120);
+      fire('pointerup', data.x + 180, data.y + 120);
+    }, { pointerType, x: box.x, y: box.y });
+    await expect(page.locator('[data-score]')).toHaveText(/\d+\/100/);
+  }
 });
 
-test('@claim:paid-pack verifies a returned license and opens three themed drills', async ({ page }) => {
+test('a valid returned license still opens the three legacy themed drills', async ({ page }) => {
   await page.route('https://api.sociobot.in/api/v1/products/pen-display-drills/verify?license=sample-license', (route) => route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } }));
   await page.goto('/practice?license=sample-license');
   await expect(page).toHaveURL(/\/practice$/);
   await expect(page.locator('.pack-tab')).toHaveCount(3);
   for (const button of await page.locator('.pack-tab').all()) await expect(button).toBeEnabled();
   expect(await page.evaluate(() => localStorage.getItem('sb_license:pen-display-drills'))).toBe('sample-license');
+});
+
+test('@claim:five-minute-session starts every practice desk at five minutes', async ({ page }) => {
+  await page.goto('/practice');
+  await expect(page.locator('[data-timer]')).toHaveText('05:00');
+});
+
+test('@claim:account-free opens the five core drills without an account or saved practice data', async ({ page }) => {
+  await page.goto('/practice');
+  await expect(page.locator('[data-drill]:not(.pack-tab)')).toHaveCount(5);
+  await expect(page.locator('input, [role="dialog"]')).toHaveCount(0);
+  expect(await page.evaluate(() => ({ local: Object.keys(localStorage), session: Object.keys(sessionStorage), cookies: document.cookie }))).toEqual({ local: [], session: [], cookies: '' });
+});
+
+test('requires distinct target coverage before completing a box drill', async ({ page }) => {
+  await page.goto('/demo');
+  const canvas = page.locator('canvas');
+  await canvas.scrollIntoViewIfNeeded();
+  const box = await canvas.boundingBox();
+  if (!box) throw new Error('Drawing area did not render.');
+  const draw = async (from: [number, number], to: [number, number]) => {
+    await page.mouse.move(box.x + box.width * from[0], box.y + box.height * from[1]);
+    await page.mouse.down();
+    await page.mouse.move(box.x + box.width * to[0], box.y + box.height * to[1], { steps: 12 });
+    await page.mouse.up();
+  };
+  const boxEdges: Array<[[number, number], [number, number]]> = [
+    [[.28, .28], [.65, .25]], [[.65, .25], [.67, .65]], [[.67, .65], [.3, .69]], [[.3, .69], [.28, .28]],
+    [[.28, .28], [.43, .17]], [[.65, .25], [.79, .16]], [[.43, .17], [.79, .16]], [[.79, .16], [.67, .65]],
+  ];
+  await draw(...boxEdges[0]);
+  await expect(page.locator('[data-progress]')).toContainText('1 of 8 target lines covered');
+  await expect(page.getByRole('button', { name: 'Finish drill' })).toBeDisabled();
+  for (const edge of boxEdges.slice(1)) await draw(...edge);
+  await expect(page.locator('[data-progress]')).toContainText('8 of 8 target lines covered');
+  await expect(page.getByRole('button', { name: 'Finish drill' })).toBeEnabled();
+});
+
+test('the N shortcut skips locked drills at the free-pack boundary', async ({ page }) => {
+  await page.goto('/practice');
+  await page.getByRole('button', { name: /05.*2-point/i }).click();
+  await page.locator('canvas').focus();
+  await page.keyboard.press('n');
+  await expect(page.getByRole('heading', { name: 'Straight line', exact: true })).toBeVisible();
+});
+
+test('a returned invalid license verifies only once and is removed', async ({ page }) => {
+  let calls = 0;
+  await page.route('https://api.sociobot.in/api/v1/products/pen-display-drills/verify?license=returned-invalid', async (route) => {
+    calls += 1;
+    await route.fulfill({ json: { valid: false, reason: 'invalid', expires_at: null } });
+  });
+  await page.goto('/practice?license=returned-invalid');
+  await expect(page).toHaveURL(/\/practice$/);
+  await expect.poll(() => calls).toBe(1);
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('sb_license:pen-display-drills'))).toBeNull();
+});
+
+test('the cold desktop first screen keeps its first action and facts in view', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  const action = await page.getByRole('link', { name: 'Try it with sample data' }).boundingBox();
+  const facts = await page.locator('.plain-facts').boundingBox();
+  expect(action && action.y + action.height).toBeLessThanOrEqual(900);
+  expect(facts && facts.y + facts.height).toBeLessThanOrEqual(900);
+});
+
+test('mobile interactive controls meet the 44px touch-target baseline', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/demo');
+  for (const control of await page.locator('a[href]:visible, button:visible').all()) {
+    const box = await control.boundingBox();
+    expect(box, await control.textContent() ?? 'control').not.toBeNull();
+    expect(Math.min(box?.width ?? 0, box?.height ?? 0), await control.textContent() ?? 'control').toBeGreaterThanOrEqual(44);
+  }
 });
 
 for (const path of ['/', '/demo', '/practice', '/privacy', '/terms', '/missing-page']) {

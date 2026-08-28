@@ -24,13 +24,15 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--paper); font-size: 16px; line-height: 1.55; }
 button, input { font: inherit; }
+button { min-height: 44px; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+a[href] { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; }
 p { margin: 0 0 1rem; }
 h1, h2, h3 { font-family: var(--display); line-height: .98; letter-spacing: -.025em; margin: 0; text-wrap: balance; }
-h1 { max-width: 13ch; font-size: clamp(3rem, 8vw, 7.2rem); font-weight: 800; text-transform: uppercase; }
+h1 { max-width: 13ch; font-size: clamp(3rem, 6vw, 5.4rem); font-weight: 800; text-transform: uppercase; }
 h2 { font-size: clamp(2.2rem, 5vw, 4.5rem); text-transform: uppercase; }
 h3 { font-size: 1.35rem; text-transform: uppercase; }
 [hidden] { display: none !important; }
@@ -50,7 +52,7 @@ h1:focus { outline: none; box-shadow: none; }
 
 main { display: block; overflow: clip; }
 .hero { position: relative; display: grid; grid-template-columns: minmax(0, .92fr) minmax(440px, 1.08fr); min-height: calc(100svh - 72px); background: var(--panel); color: var(--cream); }
-.hero-copy { z-index: 2; padding: clamp(64px, 9vw, 136px) 32px 80px max(24px, calc((100vw - 1300px) / 2)); display: flex; flex-direction: column; justify-content: center; }
+.hero-copy { z-index: 2; padding: clamp(32px, 4vw, 56px) 32px 32px max(24px, calc((100vw - 1300px) / 2)); display: flex; flex-direction: column; justify-content: center; }
 .eyebrow, .section-label, .selector-label { display: block; margin: 0 0 20px; font-family: var(--display); font-weight: 800; font-size: .8rem; letter-spacing: .15em; line-height: 1.25; text-transform: uppercase; }
 .eyebrow::before, .section-label::before { content: ""; display: inline-block; width: 26px; height: 2px; margin: 0 10px 3px 0; background: var(--amber); }
 .lede { max-width: 40rem; margin: 28px 0 32px; color: #d9e0dc; font-size: clamp(1.08rem, 2vw, 1.35rem); line-height: 1.5; }
@@ -61,7 +63,7 @@ main { display: block; overflow: clip; }
 .button:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
 .button.primary { color: var(--amber-ink); background: var(--amber); border-color: var(--amber); }
 .button.secondary { color: var(--cream); background: var(--panel-raised); border-color: var(--amber); }
-.plain-facts { list-style: none; padding: 0; margin: 40px 0 0; display: grid; gap: 8px; color: #d9e0dc; font-size: .93rem; }
+.plain-facts { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 8px; color: #d9e0dc; font-size: .93rem; }
 .plain-facts li { display: flex; align-items: center; gap: 10px; }
 .plain-facts li span { color: var(--amber); font-size: .7rem; }
 .hero-figure { align-self: stretch; margin: 0; position: relative; overflow: hidden; background: #d4c7aa; border-left: 1px solid #476167; min-height: 640px; }
@@ -116,7 +118,7 @@ main { display: block; overflow: clip; }
 
 .demo-bar { position: sticky; z-index: 3; top: 0; min-height: 46px; padding: 6px max(20px, calc((100vw - 1300px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 20px; background: var(--amber); color: var(--amber-ink); font-size: .87rem; }
 .demo-bar > span { display: flex; align-items: center; gap: 16px; }
-.text-button { min-height: 34px; padding: 2px 4px; border: 0; border-bottom: 1px solid currentColor; color: inherit; background: transparent; }
+.text-button { min-height: 44px; padding: 2px 6px; border: 0; border-bottom: 1px solid currentColor; color: inherit; background: transparent; }
 .practice-head { padding: 56px max(24px, calc((100vw - 1300px) / 2)) 48px; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; background: var(--panel); color: var(--cream); border-bottom: 1px solid #516b6e; }
 .practice-head h1 { max-width: 16ch; font-size: clamp(3rem, 7vw, 6.2rem); }
 .practice-head > div:first-child > p:last-child { max-width: 42rem; margin: 24px 0 0; color: #c6d1ce; font-size: 1.1rem; }

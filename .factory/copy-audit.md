@@ -40,7 +40,7 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 | Read the gauge | 3 | Heading; pass |
 | Adjust your next stroke using the distance score. | 8 | Pass |
 
-## Boundaries and purchase
+## Boundaries and current release
 
 | Copy | Words | Result |
 | --- | ---: | --- |
@@ -49,16 +49,10 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 | The desk measures geometry and leaves the artistic choices to you. | 10 | Pass |
 | Your strokes stay in memory and disappear when the tab closes. | 11 | Pass |
 | Only an optional paid license is stored on this device. | 10 | Pass |
-| Add the space drafting pack | 5 | Heading; pass |
-| Get orbital rings, radar spokes, and gantry depth drills. | 9 | Pass |
-| The five core drills remain free. | 6 | Pass |
-| $6 once | 2 | Price; pass |
-| Buy the themed pack — $6 | 6 | Action; pass |
-| Have a license? | 3 | Prompt; pass |
-| Paste your license token | 4 | Label; pass |
-| This is a one-time purchase. | 5 | Pass |
-| Sociobot and Dodo handle checkout and refunds. | 7 | Pass |
-| Read the purchase terms. | 4 | Pass |
+| Five focused drills, ready to use | 6 | Heading; pass |
+| The free drill desk is the complete current release. | 10 | Pass |
+| It includes line control, ellipses, boxes, and one- and two-point perspective. | 11 | Pass |
+| Read the practice terms. | 4 | Pass |
 | Five-minute drawing practice with geometric feedback. | 6 | Footer; pass |
 | Console artwork generated for this product. | 6 | Footer; pass |
 
@@ -71,8 +65,6 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 | Allowed distance around geometry | target band |
 | Per-stroke measurement | average deviation |
 | Browser-only try-out | demo |
-| Optional paid content | space drafting pack |
-| Purchase proof | license |
 | Main work surface | practice desk |
 
 ## Catalog description

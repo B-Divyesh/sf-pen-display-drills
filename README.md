@@ -4,7 +4,7 @@ Practice tablet lines and perspective with five-minute feedback drills.
 
 Pen Display Drills is an offline-capable browser practice desk for early digital artists. It overlays geometric targets for straight lines, ellipses, boxes, and one-point or two-point perspective. Every stroke receives an average deviation reading. Practice strokes and scores stay in the current tab.
 
-The five core drills are free. A $6 one-time license adds three space drafting drills. Checkout and license verification use the Sociobot billing API; no payment provider is embedded here.
+The five core drills are free and do not require an account.
 
 ## Try the sandbox
 
@@ -28,7 +28,7 @@ npm test
 npm run build
 ```
 
-`npm test` runs unit tests and Playwright browser tests. The claim tests cover offline reload, local-only practice, geometric feedback, demo reset, input methods, free drills, and paid license activation.
+`npm test` runs unit tests and Playwright browser tests. The claim tests cover offline reload, local-only practice, geometric feedback, demo reset, input methods, free drills, the five-minute timer, and account-free use.
 
 `npm run build` runs TypeScript checks and writes the static deployment to `dist/`. The first visit installs a service worker. A visited drill can then reload offline.
 
@@ -38,7 +38,7 @@ Deploy the contents of `dist/` as a static site. `staticwebapp.config.json` supp
 
 ## Privacy
 
-Drawings, pressure information, and practice scores are not uploaded or persisted. The browser stores only the optional paid license and its daily verification result. Read the in-product [privacy page](https://pen-display-drills.sociobot.in/privacy) and [terms](https://pen-display-drills.sociobot.in/terms).
+Drawings, pressure information, and practice scores are not uploaded or persisted. Legacy license verification stores a returned license and its daily verification result only when a license is supplied. Read the in-product [privacy page](https://pen-display-drills.sociobot.in/privacy) and [terms](https://pen-display-drills.sociobot.in/terms).
 
 ## Project notes
 
