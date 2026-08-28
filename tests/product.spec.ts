@@ -409,3 +409,18 @@ test('history navigation restores routes', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Practice steadier lines in five minutes' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Practice steadier lines in five minutes' })).toBeFocused();
 });
+
+test('static deployment rewrites only real app routes and returns unknown paths as 404', async () => {
+  const config = JSON.parse(await readFile('public/staticwebapp.config.json', 'utf8')) as {
+    navigationFallback?: unknown;
+    routes: Array<{ route: string; rewrite?: string; statusCode?: number }>;
+    responseOverrides: Record<string, { rewrite: string; statusCode: number }>;
+  };
+  expect(config.navigationFallback).toBeUndefined();
+  for (const route of ['/demo', '/practice', '/privacy', '/terms']) {
+    expect(config.routes).toContainEqual({ route, rewrite: '/index.html' });
+  }
+  expect(config.routes.some((route) => route.route === '/*')).toBe(false);
+  expect(config.routes.some((route) => route.rewrite && route.statusCode)).toBe(false);
+  expect(config.responseOverrides['404']).toEqual({ rewrite: '/index.html', statusCode: 404 });
+});
