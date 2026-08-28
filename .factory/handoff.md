@@ -50,7 +50,15 @@ Representative build hashes:
 
 ## Deploy and post-deploy check
 
-This static PWA deploys the contents of `dist/` through the repository’s configured static deployment. After pushing this repair commit, verify production identity against the hashes above and rerun the live demo/offline/response-policy checks.
+Deployed `dist/` with `/opt/fleet/lib/deploy-static.sh pen-display-drills dist`. Azure Static Web Apps deployment `9979d866-7f96-4059-834e-3e090d86235d` completed successfully to `https://brave-grass-041fb4f10.7.azurestaticapps.net`, and the configured custom domain `https://pen-display-drills.sociobot.in` returned HTTPS 200.
+
+Live identity passed: production `index.html`, JS, CSS, and service worker SHA-256 values exactly match the hashes above. The old tablet phrase is absent. Hashed JS serves `Cache-Control: public, max-age=31536000, immutable`; HTML revalidates every 30 seconds. Live headers include HSTS, `nosniff`, strict-origin referrer policy, camera/microphone/geolocation denial, and the restrictive CSP. `/missing-page` returns HTTP 404.
+
+Live verification passed at desktop and 390px:
+
+- `verify-url.sh` on `/demo`: HTTP 200, title, language, one `h1`, `main`, alt/label checks, and zero console errors; evidence is `.factory/qa-evidence/repair-3-live/`.
+- The restore disclosure opened with Enter at 390px; its summary, field, and submit control measured 366×44, 366×46, and 366×46 px. Axe reported no serious/critical findings and no console errors.
+- A live `/demo` keyboard stroke scored `0/100` without any off-origin request. After service-worker control, a network-disabled reload returned 200, retained the demo banner, and a keyboard stroke scored `40/100` with no errors.
 
 The factory checkout endpoint remains unavailable (`404`) and the product intentionally has no checkout, price, or purchase copy. Existing returned licenses remain restorable; do not add purchase copy until the factory registers a working checkout.
 
