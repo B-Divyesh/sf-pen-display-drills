@@ -1,0 +1,10 @@
+{
+  "slug": "pen-display-drills",
+  "title": "Pen Display Drills",
+  "summary": "Practice tablet lines and perspective with five-minute feedback drills.",
+  "artifact_class": "pwa-offline",
+  "user": "Early digital artists with a drawing tablet who need five-minute, feedback-rich drills for perspective and line control rather than another blank canvas.",
+  "smallest_useful_product": "Offline browser drills for straight lines, ellipses, boxes and one/two-point perspective; overlay a target, show deviation bands, support pen/mouse/touch, and save nothing by default.",
+  "monetization": "freemium — core drills free, themed practice packs can be a small one-time purchase.",
+  "success_measure": "A median user completes three drills in under ten minutes and opts into a fourth."
+}
