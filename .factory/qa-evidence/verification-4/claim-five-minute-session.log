@@ -1,0 +1,28 @@
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:five-minute-session
+
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ src/drills.test.ts (6 tests) 52ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:34:54
+   Duration  1.14s (transform 167ms, setup 0ms, collect 147ms, tests 52ms, environment 33ms, prepare 265ms)
+
+[2m[WebServer] [22m(node:3145) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:3187) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3221) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3221) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:151:1 › @claim:five-minute-session starts every practice desk at five minutes (829ms)
+
+  1 passed (7.0s)

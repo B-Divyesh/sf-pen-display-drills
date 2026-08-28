@@ -1,0 +1,28 @@
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:account-free
+
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ src/drills.test.ts (6 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:35:04
+   Duration  1.13s (transform 178ms, setup 0ms, collect 104ms, tests 7ms, environment 0ms, prepare 300ms)
+
+[2m[WebServer] [22m(node:3470) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:3512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3530) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3530) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:156:1 › @claim:account-free opens the five core drills without an account or saved practice data (855ms)
+
+  1 passed (6.9s)

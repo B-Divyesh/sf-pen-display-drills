@@ -1,0 +1,477 @@
+{
+  "generatedAt": "2026-08-28T15:49:06.987Z",
+  "routes": {
+    "/": {
+      "status": 200,
+      "title": "Pen Display Drills — five-minute drawing practice",
+      "lang": "en",
+      "h1": [
+        "Practice steadier lines in five minutes"
+      ],
+      "main": 1,
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/demo": {
+      "status": 200,
+      "title": "Demo — Pen Display Drills",
+      "lang": "en",
+      "h1": [
+        "Train your hand for five minutes"
+      ],
+      "main": 1,
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/practice": {
+      "status": 200,
+      "title": "Practice — Pen Display Drills",
+      "lang": "en",
+      "h1": [
+        "Train your hand for five minutes"
+      ],
+      "main": 1,
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/privacy": {
+      "status": 200,
+      "title": "Privacy — Pen Display Drills",
+      "lang": "en",
+      "h1": [
+        "Your strokes stay on your device"
+      ],
+      "main": 1,
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/terms": {
+      "status": 200,
+      "title": "Terms — Pen Display Drills",
+      "lang": "en",
+      "h1": [
+        "Use the drills for personal practice"
+      ],
+      "main": 1,
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/missing-page": {
+      "status": 404,
+      "title": "Page not found — Pen Display Drills",
+      "lang": "en",
+      "h1": [
+        "This page is off the drawing board"
+      ],
+      "main": 1,
+      "errors": [
+        "console: Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "axeSeriousCritical": []
+    }
+  },
+  "keyboard": {
+    "skip": {
+      "text": "Skip to main content",
+      "outline": "rgb(143, 212, 207) solid 3px",
+      "box": {
+        "width": 180.96875,
+        "height": 48.796875
+      }
+    },
+    "afterSkip": {
+      "tag": "BODY",
+      "text": "Skip to main content\n    \n    \n      //Pen Display Drills\n      \n        Demo\n        Drills\n        Privacy\n      \n    \n  \n    \n      Tablet calibration desk · Series 05\n      Practice steadier lines in five minutes\n      For new tablet artists who want clear targets and feedback instead of a blank canvas.\n      Try it with sample dataStart on drill 3 with two sample scores.\n      \n        ● Works offline after your first visit.\n        ● Practice stays in this tab.\n        ● Five core drills are free.\n      \n    \n    \n      \n      Fig. 01 A focused desk for hand control.\n    \n  \n  \n    Live system\n    See where the line wanderedA target band shows the route. Each stroke returns its average distance from that route.Open a clean practice desk →\n    \n      \n      Average deviation4.0 pxOn target\n    \n  \n  \n    ProcedureHow each drill works\n    01Pick a targetChoose lines, ellipses, boxes, or perspective.02Draw over the guideUse a pen, mouse, touch, or arrow keys.03Read the gaugeAdjust your next stroke using the distance score.\n  \n  \n    BoundariesA drill desk, not a drawing app\n    There are no brushes, layers, feeds, or automated critique. The desk measures geometry and leaves the artistic choices to you.Your strokes stay in memory and disappear when the tab closes. Only an optional paid license is stored on this device.\n  \n  \n    \n    Current releaseFive focused drills, ready to useThe free drill desk is the complete current release. It includes line control, ellipses, boxes, and one- and two-point perspective.\n    \n    Read the practice terms.\n  \n    Pen Display DrillsFive-minute drawing practice with geometric feedback.\n    PrivacyTermsBuilt by Param Factory (external site)\n    Version 1.0 · build 2026.08\n    Console artwork generated for this product.\n  An updated practice desk is ready.Update now\n    Pen Display Drills — five-minute drawing practice"
+    },
+    "ctaFocus": "rgb(143, 212, 207) solid 3px",
+    "demoUrl": "https://pen-display-drills.sociobot.in/demo",
+    "score": "0/100",
+    "active": "CANVAS"
+  },
+  "mobile": {
+    "/": {
+      "metrics": {
+        "scrollWidth": 390,
+        "width": 390,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "HTML",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "HEAD",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "TITLE",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "LINK",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          }
+        ]
+      },
+      "sticky": null,
+      "text200": {
+        "scrollWidth": 390,
+        "width": 390
+      },
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/demo": {
+      "metrics": {
+        "scrollWidth": 390,
+        "width": 390,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "HTML",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "HEAD",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "TITLE",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "LINK",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          }
+        ]
+      },
+      "sticky": {
+        "position": "sticky",
+        "top": 0,
+        "bottom": 83.578125,
+        "resetVisible": true,
+        "startVisible": true
+      },
+      "text200": {
+        "scrollWidth": 390,
+        "width": 390
+      },
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/practice": {
+      "metrics": {
+        "scrollWidth": 390,
+        "width": 390,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "HTML",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "HEAD",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "TITLE",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "LINK",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          }
+        ]
+      },
+      "sticky": null,
+      "text200": {
+        "scrollWidth": 390,
+        "width": 390
+      },
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/privacy": {
+      "metrics": {
+        "scrollWidth": 390,
+        "width": 390,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "HTML",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "HEAD",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "TITLE",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "LINK",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          }
+        ]
+      },
+      "sticky": null,
+      "text200": {
+        "scrollWidth": 390,
+        "width": 390
+      },
+      "errors": [],
+      "axeSeriousCritical": []
+    },
+    "/terms": {
+      "metrics": {
+        "scrollWidth": 390,
+        "width": 390,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "HTML",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "HEAD",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "TITLE",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "LINK",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          },
+          {
+            "tag": "META",
+            "animation": "1e-05s",
+            "transition": "1e-05s"
+          }
+        ]
+      },
+      "sticky": null,
+      "text200": {
+        "scrollWidth": 390,
+        "width": 390
+      },
+      "errors": [],
+      "axeSeriousCritical": []
+    }
+  },
+  "flow": {
+    "seed": {
+      "completed": "2 sample drills complete",
+      "drill": "Box"
+    },
+    "clickOnly": {
+      "score": "—",
+      "finishDisabled": true
+    },
+    "far": {
+      "score": "0/100",
+      "feedback": "270.2 px away. Slow down and aim at the end marker.",
+      "finishDisabled": true
+    },
+    "undo": {
+      "score": "—",
+      "finishDisabled": true
+    },
+    "reset": {
+      "completed": "2 sample drills complete",
+      "drill": "Box",
+      "score": "—"
+    },
+    "real": {
+      "url": "https://pen-display-drills.sociobot.in/practice",
+      "banner": 0,
+      "completed": "No drills complete yet",
+      "storage": {
+        "local": {},
+        "session": {},
+        "cookies": "",
+        "idb": []
+      }
+    },
+    "errors": [],
+    "offOrigin": []
+  },
+  "recovery": {
+    "failed": "The license could not be checked. Reconnect and try again.",
+    "recovered": {
+      "message": "License verified. The space pack is now active.",
+      "enabledPackDrills": 3,
+      "storedKeys": [
+        "sb_license:pen-display-drills",
+        "sb_license_verdict:pen-display-drills"
+      ]
+    }
+  }
+}

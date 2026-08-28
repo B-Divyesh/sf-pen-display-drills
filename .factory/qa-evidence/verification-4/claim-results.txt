@@ -1,0 +1,9 @@
+demo-sandbox	0	.factory/qa-evidence/verification-4/claim-demo-sandbox.log
+geometric-feedback	0	.factory/qa-evidence/verification-4/claim-geometric-feedback.log
+five-core-free	0	.factory/qa-evidence/verification-4/claim-five-core-free.log
+local-practice	0	.factory/qa-evidence/verification-4/claim-local-practice.log
+offline-reload	0	.factory/qa-evidence/verification-4/claim-offline-reload.log
+input-methods	0	.factory/qa-evidence/verification-4/claim-input-methods.log
+license-restore	0	.factory/qa-evidence/verification-4/claim-license-restore.log
+five-minute-session	0	.factory/qa-evidence/verification-4/claim-five-minute-session.log
+account-free	0	.factory/qa-evidence/verification-4/claim-account-free.log

@@ -1,0 +1,55 @@
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test
+
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ src/drills.test.ts (6 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:35:37
+   Duration  1.14s (transform 112ms, setup 0ms, collect 139ms, tests 7ms, environment 0ms, prepare 160ms)
+
+[2m[WebServer] [22m(node:3910) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:3952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 28 tests using 1 worker
+
+(node:3970) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3970) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/product.spec.ts:6:1 › @claim:demo-sandbox opens a seeded demo and resets it (1.2s)
+  ✓   2 [chromium] › tests/product.spec.ts:23:1 › @claim:geometric-feedback returns an observable distance score (1.4s)
+  ✓   3 [chromium] › tests/product.spec.ts:42:1 › @claim:five-core-free keeps all five core drills available (719ms)
+  ✓   4 [chromium] › tests/product.spec.ts:51:1 › @claim:local-practice sends no demo data off origin or stores it (1.4s)
+  ✓   5 [chromium] › tests/product.spec.ts:76:1 › @claim:offline-reload reloads the demo without a network (1.6s)
+  ✓   6 [chromium] › tests/product.spec.ts:107:1 › @claim:input-methods accepts pen, mouse, touch, and keyboard drawing (2.2s)
+  ✓   7 [chromium] › tests/product.spec.ts:131:1 › @claim:license-restore restores a legacy Space pack license from the practice desk (2.0s)
+  ✓   8 [chromium] › tests/product.spec.ts:142:1 › a valid returned license still opens the three legacy themed drills (864ms)
+  ✓   9 [chromium] › tests/product.spec.ts:151:1 › @claim:five-minute-session starts every practice desk at five minutes (567ms)
+  ✓  10 [chromium] › tests/product.spec.ts:156:1 › @claim:account-free opens the five core drills without an account or saved practice data (621ms)
+  ✓  11 [chromium] › tests/product.spec.ts:163:1 › home metadata does not make an unprovable universal tablet compatibility claim (702ms)
+  ✓  12 [chromium] › tests/product.spec.ts:169:1 › the license restore control works by keyboard and fits a 390px screen (1.7s)
+  ✓  13 [chromium] › tests/product.spec.ts:185:1 › license recovery label and error text retain 4.5:1 contrast on the drafting desk (990ms)
+  ✓  14 [chromium] › tests/product.spec.ts:215:1 › the mobile demo status and reset controls stay visible while drawing (663ms)
+  ✓  15 [chromium] › tests/product.spec.ts:230:1 › immutable artwork URLs are content-addressed (7ms)
+  ✓  16 [chromium] › tests/product.spec.ts:247:1 › requires distinct target coverage before completing a box drill (3.8s)
+  ✓  17 [chromium] › tests/product.spec.ts:271:1 › the N shortcut skips locked drills at the free-pack boundary (797ms)
+  ✓  18 [chromium] › tests/product.spec.ts:279:1 › a returned invalid license verifies only once and is removed (698ms)
+  ✓  19 [chromium] › tests/product.spec.ts:291:1 › the cold desktop first screen keeps its first action and facts in view (808ms)
+  ✓  20 [chromium] › tests/product.spec.ts:300:1 › mobile interactive controls meet the 44px touch-target baseline (1.4s)
+  ✓  21 [chromium] › tests/product.spec.ts:311:3 › accessible page structure on / (1.6s)
+  ✓  22 [chromium] › tests/product.spec.ts:311:3 › accessible page structure on /demo (1.6s)
+  ✓  23 [chromium] › tests/product.spec.ts:311:3 › accessible page structure on /practice (1.5s)
+  ✓  24 [chromium] › tests/product.spec.ts:311:3 › accessible page structure on /privacy (1.2s)
+  ✓  25 [chromium] › tests/product.spec.ts:311:3 › accessible page structure on /terms (1.2s)
+  ✓  26 [chromium] › tests/product.spec.ts:311:3 › accessible page structure on /missing-page (1.2s)
+  ✓  27 [chromium] › tests/product.spec.ts:322:1 › mobile practice fits a 390px screen (566ms)
+  ✓  28 [chromium] › tests/product.spec.ts:330:1 › history navigation restores routes (881ms)
+
+  28 passed (40.7s)

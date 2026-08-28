@@ -1,0 +1,19 @@
+{
+  "before": {
+    "controller": "http://127.0.0.1:4180/sw.js",
+    "caches": [
+      "pen-drills-qa-update-1"
+    ]
+  },
+  "toast": "An updated practice desk is ready.Update now",
+  "after": {
+    "url": "http://127.0.0.1:4180/demo",
+    "controller": "http://127.0.0.1:4180/sw.js",
+    "caches": [
+      "pen-drills-qa-update-2"
+    ],
+    "heading": "Train your hand for five minutes",
+    "banner": "Demo — sample data, nothing is savedReset demoStart for real"
+  },
+  "errors": []
+}

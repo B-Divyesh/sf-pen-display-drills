@@ -1,0 +1,70 @@
+[
+  {
+    "url": "https://pen-display-drills.sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/#main",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/demo",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/demo"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/demo#main",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/demo"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/missing-page#main",
+    "status": 404,
+    "finalUrl": "https://pen-display-drills.sociobot.in/missing-page"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/practice",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/practice"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/practice#main",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/practice"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/privacy"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/privacy#main",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/privacy"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/terms",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/terms"
+  },
+  {
+    "url": "https://pen-display-drills.sociobot.in/terms#main",
+    "status": 200,
+    "finalUrl": "https://pen-display-drills.sociobot.in/terms"
+  },
+  {
+    "url": "https://sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://sociobot.in/"
+  },
+  {
+    "url": "mailto:privacy@sociobot.in",
+    "status": "non-http"
+  },
+  {
+    "url": "mailto:support@sociobot.in",
+    "status": "non-http"
+  }
+]

@@ -1,0 +1,28 @@
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:local-practice
+
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ src/drills.test.ts (6 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:34:08
+   Duration  1.07s (transform 105ms, setup 0ms, collect 142ms, tests 7ms, environment 0ms, prepare 200ms)
+
+[2m[WebServer] [22m(node:1893) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:1936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:1954) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1954) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:51:1 › @claim:local-practice sends no demo data off origin or stores it (1.7s)
+
+  1 passed (7.6s)

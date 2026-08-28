@@ -1,0 +1,28 @@
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:geometric-feedback
+
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ src/drills.test.ts (6 tests) 38ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:33:46
+   Duration  1.06s (transform 142ms, setup 0ms, collect 104ms, tests 38ms, environment 0ms, prepare 201ms)
+
+[2m[WebServer] [22m(node:1258) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:1300) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:1318) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1318) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:23:1 › @claim:geometric-feedback returns an observable distance score (1.6s)
+
+  1 passed (7.7s)

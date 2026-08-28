@@ -1,0 +1,12 @@
+{
+  "recovery": {
+    "failed": "The license could not be checked. Reconnect and try again.",
+    "restored": "License verified. The space pack is now active.",
+    "enabled": 3
+  },
+  "contrast": {
+    "label": 9.952131980217551,
+    "message": 9.952131980217551,
+    "text": "This license is not active. Check the token and try again."
+  }
+}

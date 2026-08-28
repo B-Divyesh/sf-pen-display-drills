@@ -1,0 +1,13 @@
+
+> pen-display-drills@1.0.0 build
+> tsc --noEmit && vite build && node scripts/inject-sw.mjs
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 5 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  2.02 kB │ gzip: 0.71 kB
+dist/assets/index-bZfqsgNQ.css  20.22 kB │ gzip: 5.49 kB
+dist/assets/index-DXCeaTyu.js   26.85 kB │ gzip: 9.64 kB
+✓ built in 269ms

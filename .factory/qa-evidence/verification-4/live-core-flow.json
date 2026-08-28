@@ -1,0 +1,45 @@
+{
+  "results": {
+    "line": {
+      "name": "Straight line",
+      "score": "100/100",
+      "feedback": "On target: 0 px average deviation.",
+      "progress": "1 of 1 target line covered.",
+      "finishEnabled": true,
+      "summary": "You finished straight line with an average score of 100. Your control stayed near the target."
+    },
+    "ellipse": {
+      "name": "Ellipse",
+      "score": "100/100",
+      "feedback": "On target: 0 px average deviation.",
+      "progress": "45 of 45 target lines covered.",
+      "finishEnabled": true,
+      "summary": "You finished ellipse with an average score of 100. Your control stayed near the target."
+    },
+    "box": {
+      "name": "Box",
+      "score": "100/100",
+      "feedback": "On target: 0 px average deviation.",
+      "progress": "8 of 8 target lines covered.",
+      "finishEnabled": true,
+      "summary": "You finished box with an average score of 100. Your control stayed near the target."
+    },
+    "one-point": {
+      "name": "One-point perspective",
+      "score": "100/100",
+      "feedback": "On target: 0 px average deviation.",
+      "progress": "8 of 8 target lines covered.",
+      "finishEnabled": true,
+      "summary": "You finished one-point perspective with an average score of 100. Your control stayed near the target."
+    },
+    "two-point": {
+      "name": "Two-point perspective",
+      "score": "100/100",
+      "feedback": "On target: 0 px average deviation.",
+      "progress": "9 of 9 target lines covered.",
+      "finishEnabled": true,
+      "summary": "You finished two-point perspective with an average score of 100. Your control stayed near the target."
+    }
+  },
+  "errors": []
+}

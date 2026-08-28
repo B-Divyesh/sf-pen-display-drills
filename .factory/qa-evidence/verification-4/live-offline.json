@@ -1,0 +1,18 @@
+{
+  "before": {
+    "url": "https://pen-display-drills.sociobot.in/demo",
+    "controller": "https://pen-display-drills.sociobot.in/sw.js",
+    "caches": [
+      "pen-drills-2c2547acae49"
+    ],
+    "active": "activated"
+  },
+  "after": {
+    "status": 200,
+    "url": "https://pen-display-drills.sociobot.in/demo",
+    "heading": "Train your hand for five minutes",
+    "banner": true,
+    "score": "40/100",
+    "errors": []
+  }
+}

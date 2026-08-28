@@ -1,0 +1,28 @@
+
+> pen-display-drills@1.0.0 test
+> vitest run && playwright test --grep @claim:license-restore
+
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ src/drills.test.ts (6 tests) 33ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:34:42
+   Duration  1.14s (transform 138ms, setup 0ms, collect 105ms, tests 33ms, environment 0ms, prepare 251ms)
+
+[2m[WebServer] [22m(node:2838) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:2881) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:2899) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2899) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/product.spec.ts:131:1 › @claim:license-restore restores a legacy Space pack license from the practice desk (2.1s)
+
+  1 passed (8.1s)
