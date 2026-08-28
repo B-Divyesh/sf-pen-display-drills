@@ -8,7 +8,7 @@ The five core drills are free. A $6 one-time license adds three space drafting d
 
 ## Try the sandbox
 
-Open `/demo` or visit <https://pen-display-drills.sociobot.in/demo>. It starts on the box drill with two sample scores. Resetting the demo returns to that state. The demo does not read or write a practice storage namespace.
+Open `/demo`, `/?demo=1`, or visit <https://pen-display-drills.sociobot.in/demo>. It starts on the box drill with two sample scores. Resetting the demo returns to that state. The demo does not read or write a practice storage namespace.
 
 ## Run locally
 

@@ -26,15 +26,20 @@ The deploy command is `npm run build`. Static output is `dist/`, with `dist/inde
 
 ## Verification on 2026-08-28
 
-- `npm test`: passed. This ran 4 Vitest unit tests and 15 Playwright tests.
-- Claim tests passed for demo reset, geometric feedback, five free core drills, local-only practice, offline reload, input methods, and paid pack activation.
-- Axe Playwright scans found no serious or critical WCAG A/AA issues on `/`, `/demo`, `/practice`, `/privacy`, `/terms`, or the 404 route.
-- The 390×844 Playwright check found no horizontal overflow and kept the canvas within the viewport.
-- Offline verification loaded `/demo`, waited for the service worker, disabled the network, reloaded, and found the complete drawing desk.
-- Production build sizes: 26.53 KB JavaScript raw / 9.54 KB gzip; 20.12 KB CSS raw / 5.48 KB gzip; 52.49 KB hero WebP.
-- Local Lighthouse 12.8.2 mobile run: Performance 100, Accessibility 100, Best Practices 100, SEO 100. LCP 1.6 s, CLS 0, total blocking time 20 ms, FCP 1.0 s.
-- Visual review completed at desktop and 390px. The browser console stayed clear during the automated flows.
-- `npm run build`: passed and regenerated `dist/` with the service-worker asset manifest.
+- Reproduced the candidate failure against a production preview: `/?demo=1` rendered “Practice steadier lines in five minutes” before and after an offline reload, with no demo canvas.
+- Root cause: the SPA ignored the documented `demo=1` query entry. Vite preview also returns static assets with `Vary: Origin`, so strict Cache API matching could miss an installed asset and fall through to the offline network.
+- Repair: `/?demo=1` now becomes canonical `/demo` before service-worker registration. Static cache reads use `ignoreVary` for same-origin assets, and each build injects an asset-derived cache version for clean updates.
+- The exact clean build sequence `npm ci && npm run build` passed. It generated `dist/index.html` and an injected `dist/sw.js` from Vite 7.3.6.
+- `npm test` passed twice consecutively. Each run completed 4 Vitest unit tests and 15 Playwright tests against `vite preview` of a fresh production build. `reuseExistingServer` is disabled.
+- The focused `npm test -- --grep @claim:offline-reload` check passed three consecutive fresh-build runs after the final cache repair.
+- The offline claim enters through `/?demo=1`, waits for `navigator.serviceWorker.controller`, confirms the active worker and cached HTML/JS/CSS, disables the network, reloads, then completes a keyboard stroke and receives a numeric score on the canvas.
+- All seven claim tests passed: demo isolation/reset, geometric feedback, five free drills, local-only practice, offline reload, keyboard/pointer input, and mocked paid-license activation.
+- Axe Playwright scans found no serious or critical WCAG A/AA issues on `/`, `/demo`, `/practice`, `/privacy`, `/terms`, or the 404 route. Keyboard and 390×844 mobile checks passed.
+- `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173/?demo=1 ...` returned HTTP 200, title `Demo — Pen Display Drills`, `lang=en`, one h1, a main landmark, no missing alt text, no unlabeled buttons, and no console errors.
+- Local Lighthouse 13.4.1 mobile run: Performance 100, Accessibility 100, Best Practices 100, SEO 100. LCP 1.1 s, CLS 0, total blocking time 50 ms, FCP 0.9 s.
+- Production build sizes: 26.66 KB JavaScript raw / 9.54 KB gzip; 20.12 KB CSS raw / 5.48 KB gzip; 52.49 KB hero WebP. These remain below the product budgets.
+- `npm audit` reported zero vulnerabilities after pinning Vite 7.3.6 and Vitest 3.2.7.
+- Desktop and 390 px screenshots were reviewed. The mid-century instrument-panel identity and usable canvas layout are unchanged.
 
 ## Known gaps and next steps
 

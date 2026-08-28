@@ -131,7 +131,16 @@ function notFoundPage(): string {
 
 function currentPath(): string {
   const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  if (path === '/' && new URLSearchParams(window.location.search).get('demo') === '1') return '/demo';
   return path;
+}
+
+function normalizeDemoEntry(): void {
+  const params = new URLSearchParams(window.location.search);
+  if (currentPath() !== '/demo' || window.location.pathname !== '/') return;
+  params.delete('demo');
+  const search = params.size ? `?${params}` : '';
+  history.replaceState({}, '', `/demo${search}${window.location.hash}`);
 }
 
 function navigate(path: string, replace = false): void {
@@ -438,10 +447,6 @@ function registerServiceWorker(): void {
     const showUpdate = () => { const toast = document.querySelector<HTMLElement>('[data-update-toast]'); if (toast) toast.hidden = false; };
     if (registration.waiting) showUpdate();
     registration.addEventListener('updatefound', () => registration.installing?.addEventListener('statechange', () => { if (registration.waiting && navigator.serviceWorker.controller) showUpdate(); }));
-    void navigator.serviceWorker.ready.then((ready) => {
-      const urls = performance.getEntriesByType('resource').map((entry) => entry.name).filter((url) => new URL(url).origin === location.origin);
-      ready.active?.postMessage({ type: 'CACHE_URLS', urls });
-    });
   }).catch(() => undefined));
 }
 
@@ -452,6 +457,7 @@ document.addEventListener('click', (event) => {
   const target = document.querySelector<HTMLElement>(link.hash);
   if (target) { event.preventDefault(); target.scrollIntoView(); target.focus({ preventScroll: true }); }
 });
+normalizeDemoEntry();
 captureReturnedLicense();
 render();
 refreshStoredLicense();

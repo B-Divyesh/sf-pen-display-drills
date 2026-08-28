@@ -66,20 +66,34 @@ test('@claim:local-practice sends no demo data off origin', async ({ page }) => 
 });
 
 test('@claim:offline-reload reloads the demo without a network', async ({ page, context }) => {
-  await page.goto('/demo');
+  await page.goto('/?demo=1');
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;
-    if (!navigator.serviceWorker.controller) await new Promise((resolve) => navigator.serviceWorker.addEventListener('controllerchange', resolve, { once: true }));
   });
+  await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+  await expect(page).toHaveURL(/\/demo$/);
+  await expect(page.getByRole('heading', { name: 'Train your hand for five minutes' })).toBeVisible();
+  await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
   await expect.poll(() => page.evaluate(async () => {
     const script = document.querySelector<HTMLScriptElement>('script[type="module"]')?.src;
     const style = document.querySelector<HTMLLinkElement>('link[rel="stylesheet"]')?.href;
-    return Boolean(script && style && await caches.match(script) && await caches.match(style) && await caches.match(location.href));
+    const registration = await navigator.serviceWorker.getRegistration();
+    return Boolean(registration?.active && navigator.serviceWorker.controller && script && style
+      && await caches.match(script, { ignoreVary: true }) && await caches.match(style, { ignoreVary: true })
+      && await caches.match(location.href, { ignoreVary: true }));
   })).toBe(true);
   await context.setOffline(true);
-  await page.reload();
+  await page.reload({ waitUntil: 'domcontentloaded' });
   await expect(page.getByRole('heading', { name: 'Train your hand for five minutes' })).toBeVisible();
-  await expect(page.locator('canvas')).toBeVisible();
+  const canvas = page.locator('canvas');
+  await expect(canvas).toBeVisible();
+  await canvas.focus();
+  await page.keyboard.press('Space');
+  for (let index = 0; index < 12; index += 1) await page.keyboard.press('Shift+ArrowRight');
+  await page.keyboard.press('Space');
+  await expect(page.locator('[data-score]')).toHaveText(/\d+\/100/);
+  await expect(page.locator('[data-feedback]')).not.toHaveText('Make one stroke to get a reading.');
+  await expect(page.getByRole('button', { name: 'Finish drill' })).toBeEnabled();
   await context.setOffline(false);
 });
 

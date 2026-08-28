@@ -4,8 +4,9 @@
 
 - Production: `https://pen-display-drills.sociobot.in/demo`
 - Local: `http://127.0.0.1:4173/demo`
+- Compatibility entry: `/?demo=1`
 
-The `/demo` route enters demo mode directly. It starts on the box drill with two realistic sample results: 82 and 76. These values give the session meter useful context before the visitor draws.
+The `/demo` route and `/?demo=1` query entry both enter demo mode directly. The query entry is replaced with the canonical `/demo` URL before the service worker registers, so offline reloads use one stable cache key. Both start on the box drill with two realistic sample results: 82 and 76.
 
 ## Isolation
 
@@ -19,4 +20,4 @@ The sample target definitions ship in the JavaScript bundle and in the service-w
 
 ## Verification
 
-Run `npm test -- --grep @claim:demo-sandbox` from a clean install. Other claim tests use the same `/demo` entry point for geometric feedback, network interception, and offline reload.
+Run `npm test -- --grep @claim:demo-sandbox` from a clean install. The offline claim uses `/?demo=1`, waits for service-worker control, reloads without a network, and draws on the restored canvas.
