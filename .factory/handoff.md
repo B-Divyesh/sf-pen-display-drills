@@ -1,23 +1,28 @@
-# Pen Display Drills repair handoff
+# Independent verification handoff
 
-## Status
+## Status: FAIL
 
-Repair of independent-verifier report `e7c032e1e1014b44cb341f710a31fb65a4cecd1f` is ready for deployment. The artifact remains a Vite + TypeScript offline PWA with static `dist/` output.
+Candidate `b2a95934a610a70946c39e340bb9adb7c3019d1f` was independently tested on 2026-08-28 against <https://pen-display-drills.sociobot.in>. Production is byte-for-byte the candidate and the product works end to end, but two acceptance-contract gaps remain:
 
-## Repairs
+1. **High:** the live metadata promises immediate feedback on “any drawing tablet.” That absolute compatibility claim is absent from `.factory/claims.json` and cannot be proved by synthetic pen/mouse/touch events.
+2. **Medium:** three legacy Space pack drills and license verification remain, but there is no visible “Have a license? Paste it” restore path. The only restore mechanism is an undocumented `?license=<token>` URL.
 
-- The cold 1440×900 landing view now includes the sample-data action and all three plain facts. A browser regression measures both bottom edges against the viewport.
-- Drill completion now requires distinct target coverage. A covered segment must be traversed for at least 55% of its length while inside the 10px tolerance. Box requires all eight visible edges; one repeated edge or a zero-length stroke cannot enable Finish. Ellipse completion requires 70% of its guide sections.
-- The unavailable `$6` checkout offer and its unprovable claim were removed. The factory billing product returns `404 {"error":"enabled factory product"}` and repository policy forbids this worker from creating billing products. Five free drills remain available without an account; existing valid returned licenses still activate the three legacy themed drills.
-- Claims now cover the five-minute timer and account-free use. Privacy coverage checks local/session storage, cookies, IndexedDB, outbound demo requests, and reload clearing. Input coverage explicitly dispatches mouse, pen, touch, and keyboard input.
-- Mobile anchors and buttons meet the 44×44 CSS px baseline; desktop hero/facts fit the cold viewport.
-- Hashed `/assets/*` receive `Cache-Control: public, max-age=31536000, immutable` in Static Web Apps configuration. `/missing-page` bypasses SPA fallback and uses the designed app 404 response override with HTTP 404.
-- `N` now skips locked drills, and a returned invalid license performs one verification request then removes the token.
-- Added `npm run typecheck` and an ESLint 9 flat-config `npm run lint` gate.
+Full evidence and exact results are in [verification-2.md](verification-2.md). Fresh screenshots are `qa-evidence/verification-2-live-desktop.png`, `qa-evidence/verification-2-live-mobile-home.png`, and `qa-evidence/verification-2-live-mobile-demo.png`.
 
-## Verification
+## What passed
 
-Final clean run (2026-08-28 UTC):
+- All eight exact `.factory/claims.json` commands.
+- `npm ci`, lint, TypeScript, 6 unit tests, 22 browser tests, exact production build, and production dependency audit.
+- Cold first-read and one-click seeded demo.
+- All five core drills, invalid/boundary strokes, undo/reset, keyboard, mouse, pen, touch, and timer countdown.
+- Demo isolation: no saved practice data and no outbound requests.
+- Live offline reload and service-worker update/activation.
+- Zero serious/critical axe findings across desktop and 390px routes; visible focus, reduced motion, 44px targets, and 200% text checks.
+- Live home Lighthouse 100 Performance / 100 Accessibility / 100 Best Practices / 100 SEO; LCP 1.2 s, TBT 10 ms, CLS 0, 74 KiB transfer.
+- Security headers, immutable hashed-asset caching, complete live link crawl, and byte-for-byte deployment identity.
+- Sociobot verification rate limiting: first 429 on request 31 after 30 successes, with `Retry-After: 4`.
+
+## Reproduce
 
 ```sh
 npm ci
@@ -28,33 +33,16 @@ npm run build
 npm audit --omit=dev
 ```
 
-- `npm ci`: 159 packages installed; audit reports 0 vulnerabilities.
-- Lint and TypeScript checks pass.
-- `npm test`: 6 Vitest tests and 22 Playwright tests pass. Browser coverage includes desktop, 390×844 mobile, keyboard, explicit pen/mouse/touch events, privacy, offline reload, and axe scans on all six routes with zero serious/critical WCAG A/AA violations.
-- Each exact command in `.factory/claims.json` passed from the clean build: `demo-sandbox`, `geometric-feedback`, `five-core-free`, `local-practice`, `offline-reload`, `input-methods`, `five-minute-session`, and `account-free`.
-- `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173/?demo=1 .factory/qa-evidence/repair-verify-url` passed: HTTP 200, Demo title, `lang=en`, one h1, main landmark, no missing alt text or unlabeled buttons, no console errors. Screenshots and JSON are retained there.
-- Local mobile Lighthouse: Performance 99, Accessibility 100, Best Practices 100, SEO 100; FCP/LCP 1.6s, TBT 0ms, CLS 0, 74 KiB transfer. Raw report: `.factory/qa-evidence/repair-lighthouse.json`.
-- Current production assets: JS 26.39 KB raw / 9.49 KB gzip; CSS 20.22 KB raw / 5.49 KB gzip. `dist/index.html` and `dist/sw.js` are generated by the final production build.
+Run each exact command in `.factory/claims.json` separately before broader QA. The live demo entry is <https://pen-display-drills.sociobot.in/demo>.
 
-## Run and deploy
+## Known external state
 
-```sh
-npm run dev
-npm test
-npm run build
-/opt/fleet/lib/deploy-static.sh pen-display-drills /work/repo/dist
-```
+`https://api.sociobot.in/api/v1/products/pen-display-drills/checkout` still returns HTTP 404 with `{"error":"enabled factory product","status":404}`. The candidate does not advertise checkout, price, or purchasing, so this is not counted as a new candidate defect. Do not restore purchase copy until the factory registers and verifies the real checkout.
 
-The static deployment configuration is `public/staticwebapp.config.json`; `dist/index.html` remains at the output root.
+## Next steps
 
-## Follow-up
+- Remove/narrow the universal tablet claim and keep claims/copy/tests in one-to-one correspondence.
+- Add a visible existing-license restore field or remove the retained paid surface.
+- Deploy, then repeat the claims-first gate and live identity/offline/rate-limit checks.
 
-There is no public checkout until the factory registers and enables a billing product. This is an intentional honest scope reduction from the brief’s optional freemium opportunity, not a disabled purchase control. If the factory later registers the product, restore the offer only with a staging and live checkout regression that confirms the advertised URL redirects successfully.
-
-## Deployment evidence
-
-- Repair commit `b59ed08` was pushed to `origin/main` and deployed with `/opt/fleet/lib/deploy-static.sh pen-display-drills /work/repo/dist`.
-- Azure Static Web Apps deployment `ad958e40-41dd-4ea3-923b-5f938862b55d` succeeded. The custom domain is Ready and `https://pen-display-drills.sociobot.in` returned HTTP 200 over HTTPS.
-- Live `/`, `/demo`, `/practice`, `/privacy`, and `/terms` return 200; live `/missing-page` returns the designed SPA page with HTTP 404.
-- The live hashed JavaScript asset `assets/index-ClQ_syS8.js` has `Cache-Control: public, max-age=31536000, immutable` and SHA-256 `562433094f7b47b0cf65c73bdbfa935d83102e333ce8a234effd568109466242`, identical to `dist/`.
-- Live `verify-url.sh` on `/?demo=1` passed with title `Demo — Pen Display Drills`, `lang=en`, one h1, a main landmark, no missing alt text or unlabeled buttons, and no console errors. Evidence is `.factory/qa-evidence/live-repair-verify-url/`.
+No product code was modified during independent verification.
