@@ -1,32 +1,16 @@
-# Polish 3 handoff
+# Review 4 handoff
 
-## Status
+## Done
 
-**PASS.** Repair commit `482e305ee4d1b89901efa228e5aa897acd209c8b` is deployed to <https://pen-display-drills.sociobot.in> as Azure Static Web Apps deployment `434b2619-2480-482f-a6de-e35579d84861`.
+Completed the adversarial first-read review of the deployed product without modifying product code. Wrote .factory/review-4.md with the cold-screen, copy, demo, claim, privacy, history, routing, accessibility, and scope checks.
 
-## What changed
+## Verified
 
-- Demo entries now remove a returned `license` parameter before any storage or verification work. This applies to both `/?demo=1&license=…` and `/demo?license=…`; a pre-existing real-license value is untouched.
-- The single `@claim:demo-sandbox` test now proves normal one-click seed/reset behavior, direct-entry canonicalization, no new demo state or off-origin request, and preservation of a real-license sentinel.
-- The first screen now starts directly with the job headline. It removes the invented series/figure labels, names the feedback example plainly, and gives the illustration a useful target-comparison caption.
-- The catalog description is now the verb-first “Practice tablet lines and perspective with five-minute feedback drills.”
-- [`polish-3.md`](polish-3.md) maps every F-1, F-2, and F-3 finding to its current fix and evidence.
+- Live cold contexts at 390 x 844 and 1440 x 900 made the job, audience, and sample action clear before scrolling.
+- Live demo showed the seeded Box drill and scores, reset them, isolated direct demo license parameters, made no off-origin demo requests, and opened a clean real practice desk.
+- Every manifest claim command passed from a clean npm ci clone. Full npm test passed (6 Vitest and 31 Playwright tests), as did typecheck, lint, and build.
+- Live offline reload, route metadata, link crawl, 404, focus routing, and Axe serious/critical scans passed.
 
-## How to run and verify
+## Result
 
-```sh
-npm ci
-npm test
-npm run typecheck
-npm run lint
-npm run build
-npm audit --omit=dev
-```
-
-Run each exact command in `.factory/claims.json` independently after `npm ci`. The final clean clone was `/tmp/pen-display-polish-3-adc6Pe` at repair commit `482e305ee4d1b89901efa228e5aa897acd209c8b`; all eleven claims passed, as did the 6-unit/31-browser full suite, typecheck, lint, build, and production-only audit.
-
-Production was then opened in fresh cold contexts. The live audit in [`qa-evidence/polish-3-live/cold-check.json`](qa-evidence/polish-3-live/cold-check.json) confirms real 200 routes, a real 404, route metadata, zero serious/critical Axe issues, direct-demo isolation, seed/reset behavior, sentinel preservation, first-screen wording, and an offline demo reload that scored `40/100`. [`deployment-hashes.tsv`](qa-evidence/polish-3-live/deployment-hashes.tsv) confirms all 15 public build files match production byte-for-byte. Live Lighthouse scored 100/100/100/100 with LCP 1.2 s, TBT 0 ms, and CLS 0.
-
-## Known gaps and next steps
-
-None. The free five-drill product is complete as shipped. Existing Space Pack licenses can still be restored; new checkout activation remains intentionally absent until factory billing enables the product endpoint.
+Review verdict: PASS. No product findings remain. This handoff and .factory/review-4.md are the only repository changes in this work order.
