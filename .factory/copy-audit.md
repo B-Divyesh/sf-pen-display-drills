@@ -1,6 +1,6 @@
 # Landing page copy audit
 
-Audited 2026-08-28. Counts treat hyphenated terms and numerals as one word. Headings and control labels are listed separately because they are fragments. No sentence exceeds 22 words. No banned word appears.
+Audited 2026-08-29. Counts treat hyphenated terms and numerals as one word. Headings and control labels are listed separately because they are fragments. No sentence exceeds 22 words. No banned word appears.
 
 ## First screen
 
@@ -13,7 +13,7 @@ Audited 2026-08-28. Counts treat hyphenated terms and numerals as one word. Head
 | Works offline after your first visit. | 6 | Pass |
 | Practice stays in this tab. | 5 | Pass |
 | Five core drills are free. | 5 | Pass |
-| A focused desk for hand control. | 6 | Pass |
+| The practice desk compares each stroke with a target. | 9 | Listed: `geometric-feedback` |
 
 The first screen reads aloud in one breath: practice steadier lines in five minutes, for new tablet artists, then try the sample.
 
@@ -21,6 +21,7 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 
 | Copy | Words | Result |
 | --- | ---: | --- |
+| Stroke feedback example | 3 | Section label; pass |
 | See where the line wandered | 6 | Heading; pass |
 | A target band shows the route. | 6 | Pass |
 | Each stroke returns its average distance from that route. | 9 | Pass |
@@ -71,7 +72,7 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 
 ## Catalog description
 
-“Practice steadier tablet lines and perspective in five-minute feedback drills.” — 10 words, 78 characters, begins with a verb.
+“Practice tablet lines and perspective with five-minute feedback drills.” — 9 words, 68 characters, begins with a verb.
 
 ## Review 1 README rewrites
 
@@ -94,3 +95,12 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 | They also cover free drills, license restore, license storage, license privacy, the timer, and account-free use. | 16 | Pass; README claim inventory |
 
 The visitor-facing name is “demo” throughout the landing page and README. The work surface is always “practice desk.” Technical namespace details remain in `.factory/demo.md`.
+
+## Review 3 first-screen rewrites
+
+| Copy | Words | Result |
+| --- | ---: | --- |
+| Stroke feedback example | 3 | Replaces vague “Live system”; names the section. |
+| The practice desk compares each stroke with a target. | 9 | Replaces decorative figure label; listed under `geometric-feedback`. |
+
+The unused “Tablet calibration desk · Series 05” and “Fig. 01” labels were removed. The first screen now starts directly with the job headline, audience sentence, sample action, and three facts.

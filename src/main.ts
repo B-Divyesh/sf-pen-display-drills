@@ -49,7 +49,6 @@ function shell(content: string, demo = false): string {
 function homePage(): string {
   return shell(`<section class="hero ruler-edge">
     <div class="hero-copy">
-      <p class="eyebrow">Tablet calibration desk · Series 05</p>
       <h1 tabindex="-1">Practice steadier lines in five minutes</h1>
       <p class="lede">For new tablet artists who want clear targets and feedback instead of a blank canvas.</p>
       <div class="hero-action"><a class="button primary" href="/demo" data-link>Try it with sample data</a><span>Start on drill 3 with two sample scores.</span></div>
@@ -61,11 +60,11 @@ function homePage(): string {
     </div>
     <figure class="hero-figure">
       <img src="/assets/instrument-console-ef16bd9f2ce7.webp" width="960" height="640" alt="A mid-century drafting console measuring a stylus line on graph paper." fetchpriority="high" decoding="async">
-      <figcaption><span>Fig. 01</span> A focused desk for hand control.</figcaption>
+      <figcaption>The practice desk compares each stroke with a target.</figcaption>
     </figure>
   </section>
   <section class="preview-section" aria-labelledby="preview-heading">
-    <div class="section-label">Live system</div>
+    <div class="section-label">Stroke feedback example</div>
     <div class="preview-copy"><h2 id="preview-heading">See where the line wandered</h2><p>A target band shows the route. Each stroke returns its average distance from that route.</p><a class="arrow-link" href="/practice" data-link>Open a clean practice desk <span aria-hidden="true">→</span></a></div>
     <div class="mini-instrument" aria-label="Example score of 84 out of 100">
       <div class="mini-canvas" aria-hidden="true"><span class="target-line"></span><span class="sample-line"></span></div>
@@ -247,6 +246,14 @@ function captureReturnedLicense(): void {
   const params = new URLSearchParams(location.search);
   const token = params.get('license');
   if (!token) return;
+  // Demo is an isolated sample flow. Remove a returned-license parameter before
+  // any storage or network work so every documented demo URL remains isolated.
+  if (currentPath() === '/demo') {
+    params.delete('license');
+    const clean = `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`;
+    history.replaceState({}, '', clean);
+    return;
+  }
   localStorage.setItem(LICENSE_KEY, token);
   returnedLicenseToken = token;
   params.delete('license');

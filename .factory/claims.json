@@ -4,7 +4,7 @@
     "claim": "The demo starts with two sample scores and can be reset without saving data.",
     "where": "landing primary action and demo banner",
     "test": "npm test -- --grep @claim:demo-sandbox",
-    "sandbox": "fresh browser context at /demo; reset and inspect storage"
+    "sandbox": "fresh browser contexts for landing-click /demo, /?demo=1&license=demo-license-sentinel, and /demo?license=demo-license-sentinel; reset, inspect storage, preserve a pre-existing real-license sentinel, and record outgoing requests"
   },
   {
     "id": "geometric-feedback",

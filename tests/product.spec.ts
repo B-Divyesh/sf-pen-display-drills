@@ -3,24 +3,58 @@ import AxeBuilder from '@axe-core/playwright';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 
-test('@claim:demo-sandbox opens a seeded demo and resets it', async ({ page }) => {
-  await page.addInitScript(() => {
+test('@claim:demo-sandbox opens a seeded demo, resets it, and ignores direct-entry licenses', async ({ browser }) => {
+  const normalContext = await browser.newContext();
+  const normalPage = await normalContext.newPage();
+  await normalPage.addInitScript(() => {
     localStorage.setItem('sb_license:pen-display-drills', 'real-license-sentinel');
     localStorage.setItem('sb_license_verdict:pen-display-drills', JSON.stringify({ valid: true, checkedAt: Date.now() }));
   });
-  await page.goto('/');
-  await page.getByRole('link', { name: 'Try it with sample data' }).click();
-  await expect(page).toHaveURL(/\/demo$/);
-  await expect(page.getByText('2 sample drills complete')).toBeVisible();
-  await expect(page.getByText('Sample scores', { exact: true })).toBeVisible();
-  await expect(page.locator('[data-sample-scores]')).toHaveText('82/100 · 76/100');
-  await expect(page.getByRole('heading', { name: 'Box', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Reset demo' }).click();
-  await expect(page.getByText('2 sample drills complete')).toBeVisible();
-  await expect(page.locator('[data-sample-scores]')).toHaveText('82/100 · 76/100');
-  for (const button of await page.locator('.pack-tab').all()) await expect(button).toBeDisabled();
-  await expect(page.evaluate(() => Object.keys(localStorage).filter((key) => key.startsWith('practice:') || key.startsWith('demo:')))).resolves.toEqual([]);
-  expect(await page.evaluate(() => localStorage.getItem('sb_license:pen-display-drills'))).toBe('real-license-sentinel');
+  await normalPage.goto('/');
+  await normalPage.getByRole('link', { name: 'Try it with sample data' }).click();
+  await expect(normalPage).toHaveURL(/\/demo$/);
+  await expect(normalPage.getByText('2 sample drills complete')).toBeVisible();
+  await expect(normalPage.getByText('Sample scores', { exact: true })).toBeVisible();
+  await expect(normalPage.locator('[data-sample-scores]')).toHaveText('82/100 · 76/100');
+  await expect(normalPage.getByRole('heading', { name: 'Box', exact: true })).toBeVisible();
+  await normalPage.getByRole('button', { name: 'Reset demo' }).click();
+  await expect(normalPage.getByText('2 sample drills complete')).toBeVisible();
+  await expect(normalPage.locator('[data-sample-scores]')).toHaveText('82/100 · 76/100');
+  for (const button of await normalPage.locator('.pack-tab').all()) await expect(button).toBeDisabled();
+  await expect(normalPage.evaluate(() => Object.keys(localStorage).filter((key) => key.startsWith('practice:') || key.startsWith('demo:')))).resolves.toEqual([]);
+  expect(await normalPage.evaluate(() => localStorage.getItem('sb_license:pen-display-drills'))).toBe('real-license-sentinel');
+  await normalContext.close();
+
+  const directContext = await browser.newContext();
+  const directPage = await directContext.newPage();
+  const outsideRequests: string[] = [];
+  directPage.on('request', (request) => {
+    if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') outsideRequests.push(request.url());
+  });
+  await directPage.goto('/?demo=1&license=demo-license-sentinel');
+  await expect(directPage).toHaveURL(/\/demo$/);
+  await expect(directPage.getByText('Demo — sample data, nothing is saved')).toBeVisible();
+  expect(outsideRequests).toEqual([]);
+  await expect(directPage.evaluate(() => ({
+    local: Object.keys(localStorage),
+    session: Object.keys(sessionStorage),
+    cookies: document.cookie,
+  }))).resolves.toEqual({ local: [], session: [], cookies: '' });
+  await directContext.close();
+
+  const sentinelContext = await browser.newContext();
+  await sentinelContext.addInitScript(() => {
+    localStorage.setItem('sb_license:pen-display-drills', 'real-license-sentinel');
+    localStorage.setItem('sb_license_verdict:pen-display-drills', JSON.stringify({ valid: true, checkedAt: 1 }));
+  });
+  const sentinelPage = await sentinelContext.newPage();
+  await sentinelPage.goto('/demo?license=demo-license-sentinel');
+  await expect(sentinelPage).toHaveURL(/\/demo$/);
+  await expect(sentinelPage.evaluate(() => ({
+    token: localStorage.getItem('sb_license:pen-display-drills'),
+    verdict: localStorage.getItem('sb_license_verdict:pen-display-drills'),
+  }))).resolves.toEqual({ token: 'real-license-sentinel', verdict: JSON.stringify({ valid: true, checkedAt: 1 }) });
+  await sentinelContext.close();
 });
 
 test('@claim:geometric-feedback returns an observable distance score', async ({ page }) => {
