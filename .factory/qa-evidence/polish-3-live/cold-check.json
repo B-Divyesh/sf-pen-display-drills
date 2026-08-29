@@ -1,0 +1,121 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "expectedTitle": "Pen Display Drills — five-minute drawing practice",
+      "title": "Pen Display Drills — five-minute drawing practice",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://pen-display-drills.sociobot.in/",
+      "seriousOrCritical": [],
+      "errors": []
+    },
+    {
+      "path": "/demo",
+      "status": 200,
+      "expectedTitle": "Demo — Pen Display Drills",
+      "title": "Demo — Pen Display Drills",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://pen-display-drills.sociobot.in/demo",
+      "seriousOrCritical": [],
+      "errors": []
+    },
+    {
+      "path": "/practice",
+      "status": 200,
+      "expectedTitle": "Practice — Pen Display Drills",
+      "title": "Practice — Pen Display Drills",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://pen-display-drills.sociobot.in/practice",
+      "seriousOrCritical": [],
+      "errors": []
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "expectedTitle": "Privacy — Pen Display Drills",
+      "title": "Privacy — Pen Display Drills",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://pen-display-drills.sociobot.in/privacy",
+      "seriousOrCritical": [],
+      "errors": []
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "expectedTitle": "Terms — Pen Display Drills",
+      "title": "Terms — Pen Display Drills",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://pen-display-drills.sociobot.in/terms",
+      "seriousOrCritical": [],
+      "errors": []
+    },
+    {
+      "path": "/missing-page",
+      "status": 404,
+      "expectedTitle": "Page not found — Pen Display Drills",
+      "title": "Page not found — Pen Display Drills",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://pen-display-drills.sociobot.in/missing-page",
+      "seriousOrCritical": [],
+      "errors": []
+    }
+  ],
+  "directDemo": {
+    "status": 200,
+    "url": "https://pen-display-drills.sociobot.in/demo",
+    "offOrigin": [],
+    "resetScores": "82/100 · 76/100",
+    "state": {
+      "local": [],
+      "session": [],
+      "cookies": "",
+      "banner": "Demo — sample data, nothing is savedReset demoStart for real",
+      "scores": "82/100 · 76/100"
+    }
+  },
+  "sentinelDemo": {
+    "status": 200,
+    "url": "https://pen-display-drills.sociobot.in/demo",
+    "state": {
+      "token": "real-license-sentinel",
+      "verdict": "{\"valid\":true,\"checkedAt\":1}"
+    }
+  },
+  "homeCopy": {
+    "home-cold-390.png": {
+      "hasStrokeFeedbackExample": true,
+      "hasTargetCaption": true,
+      "removedLabelsAbsent": true,
+      "usesOneWorkSurfaceTerm": true
+    },
+    "home-cold-1440.png": {
+      "hasStrokeFeedbackExample": true,
+      "hasTargetCaption": true,
+      "removedLabelsAbsent": true,
+      "usesOneWorkSurfaceTerm": true
+    }
+  },
+  "privacyCopy": {
+    "hasTestedVerificationSentence": true,
+    "hasNoUntestedOnlySentence": true
+  },
+  "offlineDemo": {
+    "status": 200,
+    "url": "https://pen-display-drills.sociobot.in/demo",
+    "banner": "Demo — sample data, nothing is savedReset demoStart for real",
+    "score": "40/100"
+  }
+}

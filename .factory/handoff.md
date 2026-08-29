@@ -1,38 +1,32 @@
-# Review 3 handoff
+# Polish 3 handoff
 
 ## Status
 
-**FAIL.** This was a read-only adversarial review. No product source, assets,
-configuration, or tests were changed.
+**PASS.** Repair commit `482e305ee4d1b89901efa228e5aa897acd209c8b` is deployed to <https://pen-display-drills.sociobot.in> as Azure Static Web Apps deployment `434b2619-2480-482f-a6de-e35579d84861`.
 
-## What was done
+## What changed
 
-- Opened the deployed site in fresh 390×844 and 1440×900 Chromium contexts.
-- Completed normal one-click demo, reset, exit, storage, request, route,
-  metadata, link, accessibility, and history checks.
-- Read the brief, design thesis, claim manifest, demo contract, earlier review
-  and polish reports, prior handoff, and verification records.
-- Ran fresh `npm ci`, every exact command from `.factory/claims.json`,
-  `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`, and
-  `npm audit --omit=dev`.
+- Demo entries now remove a returned `license` parameter before any storage or verification work. This applies to both `/?demo=1&license=…` and `/demo?license=…`; a pre-existing real-license value is untouched.
+- The single `@claim:demo-sandbox` test now proves normal one-click seed/reset behavior, direct-entry canonicalization, no new demo state or off-origin request, and preservation of a real-license sentinel.
+- The first screen now starts directly with the job headline. It removes the invented series/figure labels, names the feedback example plainly, and gives the illustration a useful target-comparison caption.
+- The catalog description is now the verb-first “Practice tablet lines and perspective with five-minute feedback drills.”
+- [`polish-3.md`](polish-3.md) maps every F-1, F-2, and F-3 finding to its current fix and evidence.
 
-## Verification result
+## How to run and verify
 
-All declared claim commands and repository quality commands passed. The normal
-demo was isolated. A fresh live browser opening
-`/?demo=1&license=demo-license-sentinel`, however, canonicalized to
-`/demo` while writing `sb_license:pen-display-drills` to real
-`localStorage`. The demo banner still stated that nothing is saved. This is
-the blocking F-3-1 documented in [review-3.md](review-3.md).
+```sh
+npm ci
+npm test
+npm run typecheck
+npm run lint
+npm run build
+npm audit --omit=dev
+```
 
-F-3-2 records three non-informative decorative labels that do not meet the
-attached plain-words contract.
+Run each exact command in `.factory/claims.json` independently after `npm ci`. The final clean clone was `/tmp/pen-display-polish-3-adc6Pe` at repair commit `482e305ee4d1b89901efa228e5aa897acd209c8b`; all eleven claims passed, as did the 6-unit/31-browser full suite, typecheck, lint, build, and production-only audit.
 
-## Required next steps
+Production was then opened in fresh cold contexts. The live audit in [`qa-evidence/polish-3-live/cold-check.json`](qa-evidence/polish-3-live/cold-check.json) confirms real 200 routes, a real 404, route metadata, zero serious/critical Axe issues, direct-demo isolation, seed/reset behavior, sentinel preservation, first-screen wording, and an offline demo reload that scored `40/100`. [`deployment-hashes.tsv`](qa-evidence/polish-3-live/deployment-hashes.tsv) confirms all 15 public build files match production byte-for-byte. Live Lighthouse scored 100/100/100/100 with LCP 1.2 s, TBT 0 ms, and CLS 0.
 
-1. Prevent all demo routes from reading, writing, or verifying a returned
-   license token.
-2. Add a clean-context claim assertion for
-   `/?demo=1&license=demo-license-sentinel`.
-3. Replace or remove the labels identified in F-3-2.
-4. Rerun the full independent review after deployment.
+## Known gaps and next steps
+
+None. The free five-drill product is complete as shipped. Existing Space Pack licenses can still be restored; new checkout activation remains intentionally absent until factory billing enables the product endpoint.

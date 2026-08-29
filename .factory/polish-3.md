@@ -1,0 +1,34 @@
+# Perfection-loop polish 3
+
+Status: **PASS**
+
+Repaired source: `482e305ee4d1b89901efa228e5aa897acd209c8b`  
+Reviewed candidate: `edc60740c73e34ea35ae5d8fb2ae0d60d52cd01d`  
+Review reports: `review-1.md`, `review-2.md`, `review-3.md`  
+Production: <https://pen-display-drills.sociobot.in>  
+Deployment: Azure Static Web Apps `434b2619-2480-482f-a6de-e35579d84861`
+
+Every historical finding was checked again. No finding of any severity remains.
+
+| Finding | Change made | Test evidence | Screenshot evidence | Live URL check |
+| --- | --- | --- | --- | --- |
+| F-1-1 — sample scores were not visible | Kept the visible `82/100 · 76/100` history, Box seed, and reset behavior. The round-3 demo claim now also covers the direct documented demo entry. | `@claim:demo-sandbox opens a seeded demo, resets it, and ignores direct-entry licenses` passed in the clean clone. | [`direct-demo-390.png`](qa-evidence/polish-3-live/direct-demo-390.png) | `/?demo=1&license=demo-license-sentinel` canonicalized to `/demo`; Reset demo retained both scores in [`cold-check.json`](qa-evidence/polish-3-live/cold-check.json). |
+| F-1-2 — long README claim-test sentence | Retained the two short claim-inventory sentences; the copy audit records 13 and 16 words. | Clean-clone `npm run lint`; `.factory/copy-audit.md`. | Not applicable: this is source documentation, not a product screen. | README at the deployed commit contains the short inventory. |
+| F-1-3 — long README license sentence | Retained the three direct license sentences, all at or below 13 words. | Clean-clone `npm run lint`; `.factory/copy-audit.md`; `@claim:license-storage`. | Not applicable: this is source documentation, not a product screen. | The matching in-product privacy route returned 200 and passed Axe in [`cold-check.json`](qa-evidence/polish-3-live/cold-check.json). |
+| F-1-4 — unlisted license-storage promise | Retained the declared `license-storage` claim and exact-key/daily-refresh browser test. | Clean-clone `npm test -- --grep @claim:license-storage` passed. | [`verify-url/screenshot-desktop.png`](qa-evidence/polish-3-live/verify-url/screenshot-desktop.png) | `/privacy` returned 200 with its legal content, route metadata, and zero serious/critical Axe violations. |
+| F-1-5 — inconsistent demo terminology | Retained `demo` throughout visitor copy and kept implementation details in `.factory/demo.md`. | `@claim:demo-sandbox`; terminology table in `.factory/copy-audit.md`. | [`direct-demo-390.png`](qa-evidence/polish-3-live/direct-demo-390.png) | Live banner reads “Demo — sample data, nothing is saved” with Reset demo and Start for real. |
+| F-2-1 — unlisted outbound-data promise | Retained the narrow tested privacy wording: “License verification sends the token you paste to Sociobot.” | Clean-clone `npm test -- --grep @claim:license-verification-privacy` passed. | [`verify-url/screenshot-desktop.png`](qa-evidence/polish-3-live/verify-url/screenshot-desktop.png) | `/privacy` returned 200; the cold audit confirms the tested sentence and rejects the older untested wording. |
+| F-2-2 — two names for the work surface | Retained `practice desk` as the only visitor-facing work-surface term. | Full clean-clone browser suite and `.factory/copy-audit.md` terminology table passed. | [`home-cold-390.png`](qa-evidence/polish-3-live/home-cold-390.png) | Cold desktop and mobile audits confirm `practice desk` is present and `drill desk` is absent. |
+| F-3-1 — direct demo URL could save a license | `captureReturnedLicense()` now discards `license` before any storage or request when the route is demo. The one `demo-sandbox` claim test exercises both `/?demo=1&license=…` from an empty context and `/demo?license=…` with a real-license sentinel. | Clean-clone `npm test -- --grep @claim:demo-sandbox` passed; it asserts canonical `/demo`, no off-origin request, no local/session/cookie state, and unchanged pre-existing keys. | [`direct-demo-390.png`](qa-evidence/polish-3-live/direct-demo-390.png) | Live cold audit recorded empty new storage and no off-origin request for `/?demo=1&license=demo-license-sentinel`; the sentinel remained unchanged for `/demo?license=…`. |
+| F-3-2 — decorative invented labels | Removed “Tablet calibration desk · Series 05” and “Fig. 01”; replaced “Live system” with “Stroke feedback example”; made the figure caption explain the target comparison. | Clean-clone `npm run lint`; first-screen copy audit; full browser suite’s cold viewport check. | [`home-cold-390.png`](qa-evidence/polish-3-live/home-cold-390.png), [`home-cold-1440.png`](qa-evidence/polish-3-live/home-cold-1440.png) | Cold production audit confirms the new useful labels/caption and absence of all three discarded labels. |
+
+## Verification
+
+- Clean clone: `/tmp/pen-display-polish-3-adc6Pe` cloned `main` at `482e305ee4d1b89901efa228e5aa897acd209c8b`. `npm ci` completed with 0 vulnerabilities. Every exact claim command from `.factory/claims.json` passed: `demo-sandbox`, `geometric-feedback`, `five-core-free`, `local-practice`, `offline-reload`, `input-methods`, `license-restore`, `license-storage`, `license-verification-privacy`, `five-minute-session`, and `account-free`.
+- Full clean-clone quality suite: `npm run typecheck`, `npm run lint`, `npm test` (6 Vitest tests and 31 Chromium Playwright tests), `npm run build`, and `npm audit --omit=dev` all passed. The build wrote `dist/`; gzip sizes were 9.80 kB JavaScript and 5.54 kB CSS.
+- Local accessibility smoke: `verify-url.sh http://127.0.0.1:4174/demo` passed with title, language, one h1, main, image alt text, labeled buttons, and no console errors. Evidence: [`verify.json`](qa-evidence/polish-3-local/verify-url/verify.json). Playwright Axe checks in the full suite reported no serious/critical issues on every route.
+- Production cold audit: [`live-check.mjs`](qa-evidence/polish-3-live/live-check.mjs) checked `/`, `/demo`, `/practice`, `/privacy`, `/terms`, and `/missing-page`. All real routes returned 200; the designed unknown route returned a real 404. Each had its route title, canonical URL, `lang`, one h1, one main, no page errors, and zero serious/critical Axe issues. Evidence: [`cold-check.json`](qa-evidence/polish-3-live/cold-check.json).
+- Production PWA: the cold audit activated the worker, turned the context offline, reloaded the canonical `/demo` with HTTP 200, and scored a keyboard stroke (`40/100`).
+- Production verifier: [`verify.json`](qa-evidence/polish-3-live/verify-url/verify.json) is green for `/demo`; screenshots are adjacent.
+- Deployment identity: all 15 public files from the clean-clone `dist/` matched production SHA-256 bytes. Evidence: [`deployment-hashes.tsv`](qa-evidence/polish-3-live/deployment-hashes.tsv).
+- Live Lighthouse mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100; LCP 1.2 s, TBT 0 ms, CLS 0. Evidence: [`lighthouse.json`](qa-evidence/polish-3-live/lighthouse.json).
