@@ -1,33 +1,47 @@
-# Repair 5 handoff
+# Verification 5 handoff
 
-## What changed
+## Result
 
-- Implementation commit: `3c7f77f7c9a80a9f397b38c2d82754a80467e786`.
-- Documentation baseline before this repair: `84b7a20a8f345a6fe657f914822ec54a81d75254`.
-- Replaced the 404-page metaphor with the direct `Page not found` heading and removed its metaphorical eyebrow.
-- Added a browser regression that opens an unknown address, checks the visible recovery page, follows its return action, and confirms the landing job heading. It tests the visitor outcome rather than source text.
-- Added the 404 copy to the plain-words audit. The catalog description remains verb-first, 72 characters, and is copied to `/work/.evidence/catalog-description.txt`.
+**FAIL** — one medium accessibility finding remains. There are zero untested claims.
 
-## Verification
+- Implementation reviewed: `3c7f77f7c9a80a9f397b38c2d82754a80467e786`
+- Documentation baseline: `acca723b36d33356875693f03d6706b13f5f1081`
+- Live URL: <https://pen-display-drills.sociobot.in>
+- Full report: [verification-5.md](verification-5.md)
 
-The pushed implementation was checked from a fresh clone after `npm ci`:
+## What was verified
 
-- All 11 exact commands from `.factory/claims.json` passed independently.
-- `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`, and `npm audit --omit=dev` passed. The full suite has 6 Vitest tests and 32 Chromium tests.
-- Production build sizes: JavaScript 9.78 kB gzip; CSS 5.54 kB gzip.
-- `/opt/fleet/lib/verify-url.sh https://pen-display-drills.sociobot.in/demo /work/.evidence/repair-5-verify-url` passed with no browser console errors.
-- A fresh live phone and desktop visit showed the job, audience, `Try it with sample data` action, its outcome, and all three facts before scrolling. Desktop facts ended at 808 px of 900 px; phone facts ended at 723 px of 844 px.
-- The live demo started with `82/100 · 76/100`, kept its sample banner, reset to the same scores, then opened an empty real practice desk with no local or session storage and no cookies.
-- The live unknown route returned HTTP 404, titled `Page not found — Pen Display Drills`, showed the direct heading and explanation, and returned to the landing page. Live Playwright Axe found no serious or critical issue on that route; the full suite covers all routes.
-- Current live offline reload of `/demo` returned HTTP 200 and scored a keyboard stroke. The update simulation showed the update notice, activated the new worker, replaced the cache, and kept the demo banner with no errors.
-- Current mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; LCP 1.2 s, TBT 20 ms, CLS 0. Evidence is `/work/.evidence/repair-5-lighthouse.json`.
+- The deployed 404 repair is correct: a real HTTP 404 now says `Page not found`, explains the address mismatch, and returns to the landing page.
+- Fresh phone and desktop sessions showed the job, audience, first action, expected result, and three facts before scrolling at normal text size.
+- The one-click demo showed Box, `82/100 · 76/100`, its persistent sample label, Reset demo, and Start for real. Reset restored the seed. No demo state reached real storage.
+- All 11 exact claim commands passed independently from a clean clone. Each claim ID appears in exactly one tagged test.
+- Typecheck, lint, the full 6-unit/32-browser suite, build, and audit passed. `dist/` was produced.
+- All five live drills completed with full target coverage at `100/100`. Invalid input, license recovery, missing-canvas recovery, timer completion, keyboard, touch, pen, and mouse paths passed.
+- Offline reload and the service-worker update flow passed. All 15 public build files matched production byte for byte.
+- Normal-size mobile structure, touch targets, routes, titles, links, focus, reduced motion, legal pages, and Axe scans passed.
+- Lighthouse scored 100/100/100/100. LCP was 1.2 s, TBT 0 ms, CLS 0, and transfer size 74 KiB.
 
-## Deployment
+## Finding to fix
 
-- Deployed the implementation to the existing static product with deployment `6cb7b60a-c62a-477e-a125-3fdd5a29572a`.
-- Used the product's existing `dist/staticwebapp.config.json`. DNS, domains, replica settings, volumes, and other infrastructure were not changed.
-- The HTTPS product now serves the new `index-wufrWTtZ.js` bundle on <https://pen-display-drills.sociobot.in>.
+At a 390 px viewport with text enlarged to 200%, `main { overflow: clip; }` hides content that grows beyond the viewport. The landing, practice, demo, privacy, and terms pages are affected. The demo timer loses its last digit and several headings extend beyond the clipped edge.
 
-## Remaining notes
+Make enlarged headings and the session meter wrap or size within the available width. Remove clipping that hides resized text. Add a 390 px regression that increases root text to 200% and checks important text bounds against the visible main area.
 
-No product defect remains from review 5. The five core drills remain free and complete. Existing Space Pack licenses can still be restored, but a new paid checkout is not advertised because billing registration has not made one available. Enabling a new sale remains a factory billing dependency; no price, checkout link, or payment credential was invented.
+## Re-run
+
+```sh
+npm ci
+npm run typecheck
+npm run lint
+npm test
+npm run build
+npm audit --omit=dev
+```
+
+Then run every exact command in `.factory/claims.json`, repeat the 200% phone check on all routes, and confirm the deployed build matches `dist/`.
+
+## Evidence and remaining external work
+
+Evidence is under `/work/.evidence/verification-5/`. The machine-readable result is `/work/.evidence/qa-result.json`.
+
+No product code changed in this verification. New Space Pack checkout still depends on external billing registration. Existing-license restore remains available, and the product makes no new-sale claim.
