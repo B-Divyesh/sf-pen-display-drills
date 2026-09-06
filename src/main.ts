@@ -135,7 +135,7 @@ function legalPage(kind: 'privacy' | 'terms'): string {
 }
 
 function notFoundPage(): string {
-  return shell(`<section class="not-found"><div class="lost-dial" aria-hidden="true">404</div><p class="eyebrow">Reading outside range</p><h1 tabindex="-1">This page is off the drawing board</h1><p>The address does not match a drill or policy page.</p><a class="button primary" href="/" data-link>Return to the practice desk</a></section>`);
+  return shell(`<section class="not-found"><div class="lost-dial" aria-hidden="true">404</div><h1 tabindex="-1">Page not found</h1><p>The address does not match a drill or policy page.</p><a class="button primary" href="/" data-link>Return to the practice desk</a></section>`);
 }
 
 function currentPath(): string {

@@ -59,6 +59,14 @@ The first screen reads aloud in one breath: practice steadier lines in five minu
 | Five-minute drawing practice with geometric feedback. | 6 | Footer; pass |
 | Console artwork generated for this product. | 6 | Footer; pass |
 
+## Not-found page
+
+| Copy | Words | Result |
+| --- | ---: | --- |
+| Page not found | 3 | Heading; names the error directly. |
+| The address does not match a drill or policy page. | 10 | Pass; explains what happened. |
+| Return to the practice desk | 5 | Action; returns to the available drills. |
+
 ## Terminology table
 
 | Concept | One term used |

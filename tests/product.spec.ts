@@ -444,6 +444,16 @@ test('history navigation restores routes', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Practice steadier lines in five minutes' })).toBeFocused();
 });
 
+test('an unknown address gives a plain recovery page', async ({ page }) => {
+  await page.goto('/missing-page');
+  await expect(page).toHaveTitle('Page not found — Pen Display Drills');
+  await expect(page.getByRole('heading', { name: 'Page not found', exact: true })).toBeVisible();
+  await expect(page.getByText('The address does not match a drill or policy page.')).toBeVisible();
+  await page.getByRole('link', { name: 'Return to the practice desk' }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('heading', { name: 'Practice steadier lines in five minutes' })).toBeVisible();
+});
+
 test('static deployment rewrites only real app routes and returns unknown paths as 404', async () => {
   const config = JSON.parse(await readFile('public/staticwebapp.config.json', 'utf8')) as {
     navigationFallback?: unknown;
